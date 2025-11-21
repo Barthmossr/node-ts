@@ -150,7 +150,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - [GitHub Repository](https://github.com/Barthmossr/node-ts)
 - [Issue Tracker](https://github.com/Barthmossr/node-ts/issues)
-- [Documentation](docs/)
+- [Documentation](docs/README.md)
 
 ---
 
