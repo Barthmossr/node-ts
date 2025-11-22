@@ -18,10 +18,18 @@
   ],
   "type": "module",
   "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node dist/app/main.js",
+    "start": "node dist/app/main.js",
+    "typecheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/Barthmossr/node-ts/issues"
   },
-  "homepage": "https://github.com/Barthmossr/node-ts#readme"
+  "homepage": "https://github.com/Barthmossr/node-ts#readme",
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  }
 }
