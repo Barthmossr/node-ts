@@ -109,7 +109,7 @@ node-ts/
 
 For detailed documentation, please refer to the `docs/` directory:
 
-- [Contributing Guidelines](docs/contributing.md) - How to contribute to this project
+- [Contributing Guidelines](docs/CONTRIBUTING.md) - How to contribute to this project
 - [Project Overview](docs/guides/project-overview.md) - Architectural decisions and rationale
 - [Library Decisions](docs/guides/libraries.md) - Why each tool was chosen
 - [Development Guide](docs/guides/development.md) - Setup and workflow instructions
@@ -138,7 +138,7 @@ npm run test:watch
 
 ## 🤝 Contributing
 
-We follow strict conventional commit standards for both commits and branch names. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+We follow strict conventional commit standards for both commits and branch names. Please read [CONTRIBUTING.md](docs/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 **All pull requests must be made to the `develop` branch, not `main`.**
 

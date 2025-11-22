@@ -59,7 +59,7 @@ Containerization and deployment:
 
 If you want to contribute:
 
-6. **[Contributing Guidelines](CONTRIBUTING.md)** 🤝
+6. **[Contributing Guidelines](./CONTRIBUTING.md)** 🤝
    - Branch strategy and workflow
    - Commit message standards
    - Pull request process
