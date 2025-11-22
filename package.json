@@ -1,0 +1,27 @@
+{
+  "name": "node-ts",
+  "version": "1.0.0",
+  "description": "A production-ready Node.js TypeScript template",
+  "main": "dist/app/main.js",
+  "author": "Barthmossr",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Barthmossr/node-ts.git"
+  },
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "template",
+    "boilerplate"
+  ],
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Barthmossr/node-ts/issues"
+  },
+  "homepage": "https://github.com/Barthmossr/node-ts#readme"
+}
