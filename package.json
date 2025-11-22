@@ -19,7 +19,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc && node dist/app/main.js",
+    "dev": "tsx src/app/main.ts",
     "start": "node dist/app/main.js",
     "typecheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,6 +30,7 @@
   "homepage": "https://github.com/Barthmossr/node-ts#readme",
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
 }
