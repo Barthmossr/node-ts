@@ -22,6 +22,7 @@
     "dev": "tsx src/app/main.ts",
     "start": "node dist/app/main.js",
     "typecheck": "tsc --noEmit",
+    "check": "ncu -ui",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bugs": {
@@ -30,6 +31,7 @@
   "homepage": "https://github.com/Barthmossr/node-ts#readme",
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "npm-check-updates": "^19.1.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
