@@ -24,6 +24,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
     "check": "ncu -ui",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky"
@@ -41,6 +42,7 @@
     "globals": "^16.5.0",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
+    "lint-staged": "^16.2.7",
     "npm-check-updates": "^19.1.2",
     "prettier": "3.7.3",
     "tsx": "^4.20.6",
