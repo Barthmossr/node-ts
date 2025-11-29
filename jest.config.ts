@@ -8,13 +8,14 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.types.ts',
     '!src/**/index.ts',
   ],
   coverageDirectory: 'coverage',
-  coverageReporters: ['text', 'lcov', 'html'],
+  coverageReporters: ['text', 'lcov', 'html', 'json-summary'],
   coverageThreshold: {
     global: {
       branches: 100,
