@@ -25,7 +25,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "check": "ncu -ui",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
   },
   "bugs": {
     "url": "https://github.com/Barthmossr/node-ts/issues"
@@ -38,6 +39,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "npm-check-updates": "^19.1.2",
     "prettier": "3.7.3",
