@@ -193,21 +193,18 @@ Automate repetitive tasks (testing, linting, deployment) to reduce human error.
 This template will serve as the foundation for specialized templates:
 
 1. **Backend API Template**
-
    - Add Express/Fastify
    - Add database support (PostgreSQL, MongoDB, etc.)
    - Add authentication/authorization
    - Add API documentation (Swagger/OpenAPI)
 
 2. **Frontend Template**
-
    - Add React/Vue/Svelte
    - Add bundler configuration
    - Add styling solutions
    - Add state management
 
 3. **Mobile Template**
-
    - Add React Native/Flutter setup
    - Add mobile-specific tooling
    - Add app store deployment

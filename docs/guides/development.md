@@ -20,13 +20,11 @@ Before you begin, ensure you have the following installed:
 ### Required
 
 - **Node.js v24.11.1**
-
   - Check version: `node --version`
   - Download: [nodejs.org](https://nodejs.org/)
   - We recommend using [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager)
 
 - **npm** (comes with Node.js)
-
   - Check version: `npm --version`
   - Should be v10+ for best compatibility
 
@@ -37,7 +35,6 @@ Before you begin, ensure you have the following installed:
 ### Recommended
 
 - **Visual Studio Code** (or any IDE of your choice)
-
   - Download: [code.visualstudio.com](https://code.visualstudio.com/)
   - Extensions we recommend:
     - ESLint
@@ -269,18 +266,18 @@ Unit tests test individual functions/classes in isolation.
 
 ```typescript
 // tests/unit/app/math.test.ts
-import { add } from "../../../src/app/math"
+import { add } from '../../../src/app/math'
 
-describe("add function", () => {
-  it("should add two numbers correctly", () => {
+describe('add function', () => {
+  it('should add two numbers correctly', () => {
     expect(add(2, 3)).toBe(5)
   })
 
-  it("should handle negative numbers", () => {
+  it('should handle negative numbers', () => {
     expect(add(-1, 1)).toBe(0)
   })
 
-  it("should handle zero", () => {
+  it('should handle zero', () => {
     expect(add(0, 5)).toBe(5)
   })
 })
@@ -302,10 +299,10 @@ Integration tests test multiple components working together.
 
 ```typescript
 // tests/integration/app/service.integration.test.ts
-import { UserService } from "../../../src/app/services/user-service"
-import { Database } from "../../../src/app/database"
+import { UserService } from '../../../src/app/services/user-service'
+import { Database } from '../../../src/app/database'
 
-describe("UserService Integration", () => {
+describe('UserService Integration', () => {
   let service: UserService
   let db: Database
 
@@ -319,10 +316,10 @@ describe("UserService Integration", () => {
     await db.disconnect()
   })
 
-  it("should create and retrieve user", async () => {
-    const user = await service.createUser({ name: "John" })
+  it('should create and retrieve user', async () => {
+    const user = await service.createUser({ name: 'John' })
     const retrieved = await service.getUser(user.id)
-    expect(retrieved.name).toBe("John")
+    expect(retrieved.name).toBe('John')
   })
 })
 ```
@@ -342,15 +339,15 @@ E2E tests test the complete system from user's perspective.
 
 ```typescript
 // tests/e2e/app/api.e2e.test.ts
-import request from "supertest"
-import { app } from "../../../src/app/main"
+import request from 'supertest'
+import { app } from '../../../src/app/main'
 
-describe("API E2E Tests", () => {
-  it("should handle complete user flow", async () => {
+describe('API E2E Tests', () => {
+  it('should handle complete user flow', async () => {
     // Create user
     const createResponse = await request(app)
-      .post("/api/users")
-      .send({ name: "John" })
+      .post('/api/users')
+      .send({ name: 'John' })
       .expect(201)
 
     const userId = createResponse.body.id
@@ -360,13 +357,13 @@ describe("API E2E Tests", () => {
       .get(`/api/users/${userId}`)
       .expect(200)
       .expect((res) => {
-        expect(res.body.name).toBe("John")
+        expect(res.body.name).toBe('John')
       })
 
     // Update user
     await request(app)
       .put(`/api/users/${userId}`)
-      .send({ name: "Jane" })
+      .send({ name: 'Jane' })
       .expect(200)
 
     // Verify update
@@ -374,7 +371,7 @@ describe("API E2E Tests", () => {
       .get(`/api/users/${userId}`)
       .expect(200)
       .expect((res) => {
-        expect(res.body.name).toBe("Jane")
+        expect(res.body.name).toBe('Jane')
       })
   })
 })

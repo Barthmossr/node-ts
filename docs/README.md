@@ -23,7 +23,6 @@ Start here if you're new to this template:
 Essential guides for day-to-day development:
 
 2. **[Development Guide](guides/development.md)** 🛠️
-
    - Setup your development environment
    - Learn the development workflow
    - Run tests and build the project

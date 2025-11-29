@@ -255,27 +255,17 @@ For production builds with stricter settings:
 - **no-console**: Warn on console.log (allow warn/error)
 - **prefer-const**: Use const when variable isn't reassigned
 
-### .eslintignore
-
-```
-node_modules
-dist
-coverage
-*.config.js
-```
-
 ## 💅 Prettier Configuration
 
 ### .prettierrc.json
 
 ```json
 {
-  "semi": true,
-  "trailingComma": "es5",
+  "semi": false,
   "singleQuote": true,
-  "printWidth": 100,
+  "trailingComma": "all",
   "tabWidth": 2,
-  "useTabs": false,
+  "printWidth": 80,
   "arrowParens": "always",
   "endOfLine": "lf"
 }
@@ -311,46 +301,46 @@ package-lock.json
 ```javascript
 module.exports = {
   // Use ts-jest preset
-  preset: "ts-jest",
+  preset: 'ts-jest',
 
   // Test environment
-  testEnvironment: "node",
+  testEnvironment: 'node',
 
   // Root directories for tests
-  roots: ["<rootDir>/tests"],
+  roots: ['<rootDir>/tests'],
 
   // Test file patterns
-  testMatch: ["**/*.test.ts", "**/*.spec.ts"],
+  testMatch: ['**/*.test.ts', '**/*.spec.ts'],
 
   // Module paths
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
 
   // Coverage
   collectCoverageFrom: [
-    "src/**/*.ts",
-    "!src/**/*.d.ts",
-    "!src/**/*.interface.ts",
-    "!src/**/*.type.ts",
+    'src/**/*.ts',
+    '!src/**/*.d.ts',
+    '!src/**/*.interface.ts',
+    '!src/**/*.type.ts',
   ],
 
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   coverageThresholds: {
     global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
     },
   },
 
   // Transform
   transform: {
-    "^.+\\.ts$": "ts-jest",
+    '^.+\\.ts$': 'ts-jest',
   },
 
   // Setup files
-  setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
 
   // Clear mocks between tests
   clearMocks: true,
@@ -376,8 +366,8 @@ You can create separate configs for each test type:
 
 ```javascript
 module.exports = {
-  ...require("./jest.config"),
-  testMatch: ["**/tests/unit/**/*.test.ts"],
+  ...require('./jest.config'),
+  testMatch: ['**/tests/unit/**/*.test.ts'],
 }
 ```
 
@@ -592,15 +582,15 @@ API_KEY=
 
 ```typescript
 // src/app/config/env.ts
-import dotenv from "dotenv"
+import dotenv from 'dotenv'
 
 // Load environment variables
 dotenv.config()
 
 export const config = {
-  nodeEnv: process.env.NODE_ENV || "development",
-  port: parseInt(process.env.APP_PORT || "3000", 10),
-  host: process.env.APP_HOST || "localhost",
+  nodeEnv: process.env.NODE_ENV || 'development',
+  port: parseInt(process.env.APP_PORT || '3000', 10),
+  host: process.env.APP_HOST || 'localhost',
 }
 ```
 

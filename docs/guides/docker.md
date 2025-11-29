@@ -149,7 +149,7 @@ docker run -p 3000:3000 node-ts:latest
 ### docker-compose.yml
 
 ```yaml
-version: "3.8"
+version: '3.8'
 
 services:
   app:
@@ -157,7 +157,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - .:/app
       - /app/node_modules
@@ -185,7 +185,7 @@ services:
 ### docker-compose.prod.yml
 
 ```yaml
-version: "3.8"
+version: '3.8'
 
 services:
   app:
@@ -193,7 +193,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NODE_ENV=production
       - APP_PORT=3000
@@ -201,9 +201,9 @@ services:
     healthcheck:
       test:
         [
-          "CMD",
-          "node",
-          "-e",
+          'CMD',
+          'node',
+          '-e',
           "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})",
         ]
       interval: 30s

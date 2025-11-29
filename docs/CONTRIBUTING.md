@@ -67,7 +67,6 @@ We follow a **Git Flow** inspired branching model:
 ### Main Branches
 
 - **`main`** - Production/deployment branch
-
   - Always stable and deployable
   - Only accepts merges from `develop`
   - Protected branch - no direct commits
@@ -238,13 +237,11 @@ All contributions must include appropriate tests:
 ### Test Types
 
 1. **Unit Tests** (`tests/unit/`)
-
    - Test individual functions/classes in isolation
    - Mock external dependencies
    - Required for all new functions/classes
 
 2. **Integration Tests** (`tests/integration/`)
-
    - Test component interactions
    - Required for new modules/services
 
