@@ -20,11 +20,15 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsx src/app/main.ts",
+    "dev:watch": "tsx watch src/app/main.ts",
     "start": "node dist/app/main.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "rimraf dist coverage",
+    "validate": "npm run lint && npm run format:check && npm run typecheck && npm run build",
     "check": "ncu -ui",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -51,9 +55,13 @@
     "lint-staged": "^16.2.7",
     "npm-check-updates": "^19.1.2",
     "prettier": "3.7.3",
+    "rimraf": "^6.1.2",
     "ts-jest": "^29.4.5",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.0"
+  },
+  "engines": {
+    "node": "24.11.1"
   }
 }
