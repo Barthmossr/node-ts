@@ -1,1 +1,3 @@
-console.log('Hello, World!')
+const main = (): void => {}
+
+main()
