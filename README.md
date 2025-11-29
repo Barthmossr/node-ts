@@ -2,8 +2,37 @@
 
 > A production-ready Node.js TypeScript template repository with comprehensive development tooling, CI/CD pipelines, and strict organizational standards.
 
+<!-- CI/CD Status -->
+
+[![CI - Validate](https://github.com/Barthmossr/node-ts/actions/workflows/validate.yml/badge.svg)](https://github.com/Barthmossr/node-ts/actions/workflows/validate.yml)
+[![CI - Test](https://github.com/Barthmossr/node-ts/actions/workflows/test.yml/badge.svg)](https://github.com/Barthmossr/node-ts/actions/workflows/test.yml)
+
+<!-- Code Quality -->
+
+[![Code Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://codecov.io/gh/Barthmossr/node-ts)
+
+<!-- Technology -->
+
 [![Node.js Version](https://img.shields.io/badge/node-v24.11.1-brightgreen.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-v5.9.3-blue.svg)](https://www.typescriptlang.org/)
+[![ESLint](https://img.shields.io/badge/ESLint-v9.39.1-4B32C3.svg)](https://eslint.org/)
+[![Prettier](https://img.shields.io/badge/Prettier-v3.7.3-F7B93E.svg)](https://prettier.io/)
+[![Jest](https://img.shields.io/badge/Jest-v30.2.0-C21325.svg)](https://jestjs.io/)
+
+<!-- Standards -->
+
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196.svg?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![ESLint: strict](https://img.shields.io/badge/ESLint-strict-4B32C3.svg)](https://eslint.org/)
+
+<!-- Module & Package -->
+
+[![ES Modules](https://img.shields.io/badge/ES%20Modules-enabled-yellow.svg)](https://nodejs.org/api/esm.html)
+[![npm](https://img.shields.io/badge/npm-package%20manager-CB3837.svg?logo=npm)](https://www.npmjs.com/)
+
+<!-- License -->
+
 [![License](https://img.shields.io/badge/license-MIT-red.svg)](LICENSE)
 
 ## 📋 Overview
