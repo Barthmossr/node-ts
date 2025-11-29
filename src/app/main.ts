@@ -1,3 +1,3 @@
 const main = (): void => {}
 
-main()
+export { main }
