@@ -170,12 +170,12 @@ Fixes #123"
 
 ### Before Submitting
 
-1. **Ensure all tests pass**: `npm test`
-2. **Lint your code**: `npm run lint`
-3. **Build successfully**: `npm run build`
-4. **Update documentation** if needed
-5. **Add/update tests** for your changes
-6. **Rebase on latest develop**: `git rebase develop`
+1. **Run all validation checks**: `npm run validate`
+   - This runs lint, format check, typecheck, and build
+2. **Ensure all tests pass**: `npm run test:coverage`
+3. **Update documentation** if needed
+4. **Add/update tests** for your changes (100% coverage required)
+5. **Rebase on latest develop**: `git rebase develop`
 
 ### PR Requirements
 
@@ -206,20 +206,15 @@ Brief description of changes
 
 Fixes #(issue number)
 
-## Testing
-
-- [ ] Unit tests pass
-- [ ] Integration tests pass
-- [ ] E2E tests pass
-- [ ] Manual testing completed
-
 ## Checklist
 
-- [ ] Code follows project style guidelines
-- [ ] Self-review completed
-- [ ] Documentation updated
-- [ ] Tests added/updated
-- [ ] All CI checks pass
+- [ ] Code follows project style guidelines (no semicolons, single quotes)
+- [ ] No TypeScript errors (`npm run typecheck`)
+- [ ] No ESLint warnings (`npm run lint`)
+- [ ] Code is formatted (`npm run format:check`)
+- [ ] Tests added/updated with 100% coverage
+- [ ] All CI checks pass (`npm run validate`)
+- [ ] Documentation updated if needed
 ```
 
 ### PR Review Process
@@ -234,31 +229,43 @@ Fixes #(issue number)
 
 All contributions must include appropriate tests:
 
-### Test Types
+### Test Structure
 
-1. **Unit Tests** (`tests/unit/`)
-   - Test individual functions/classes in isolation
-   - Mock external dependencies
-   - Required for all new functions/classes
+Tests mirror the `src/` structure in the `tests/` directory:
 
-2. **Integration Tests** (`tests/integration/`)
-   - Test component interactions
-   - Required for new modules/services
+```
+tests/
+├── setup.ts          # Global test setup
+└── app/
+    └── main.test.ts  # Tests for src/app/main.ts
+```
 
-3. **E2E Tests** (`tests/e2e/`)
-   - Test complete user flows
-   - Required for new features
+### Writing Tests
+
+```typescript
+// tests/app/example.test.ts
+import { myFunction } from '@/app/example'
+
+describe('myFunction', () => {
+  it('should do something', () => {
+    const result = myFunction()
+    expect(result).toBeDefined()
+  })
+})
+```
+
+**Best Practices**:
+
+- Use `it('should...')` format for test names
+- Use path alias `@/*` for imports
+- Test one thing per test
+- Keep tests independent
 
 ### Running Tests
 
 ```bash
 # Run all tests
 npm test
-
-# Run specific test types
-npm run test:unit
-npm run test:integration
-npm run test:e2e
 
 # Run with coverage
 npm run test:coverage
@@ -269,9 +276,9 @@ npm run test:watch
 
 ### Coverage Requirements
 
-- Aim for at least 80% code coverage
-- Critical paths should have 100% coverage
-- Coverage reports are generated automatically in CI
+- **100% coverage is required** for branches, functions, lines, and statements
+- Coverage reports are generated in multiple formats (text, lcov, html, json-summary)
+- CI will fail if coverage drops below 100%
 
 ## 👀 Code Review
 
@@ -314,9 +321,9 @@ When requesting features via GitHub Issues:
 ## 📚 Documentation
 
 - Update README.md for user-facing changes
-- Add/update docs in `docs/` for detailed information
-- Include inline code comments for complex logic
-- Update CHANGELOG.md (if we implement one)
+- Add/update docs in `docs/guides/` for detailed information
+- **Do not add code comments** - code should be self-documenting
+- All documentation goes in the `docs/` folder only
 
 ## ❓ Questions?
 

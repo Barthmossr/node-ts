@@ -31,7 +31,7 @@ This document explains why each library was chosen, what it does, and how it's c
 - **Bun**: Exciting but not mature enough (future consideration)
 - **Older Node versions**: Missing modern features
 
-### TypeScript
+### TypeScript ^5.9.3
 
 **What**: Typed superset of JavaScript
 
@@ -49,13 +49,21 @@ This document explains why each library was chosen, what it does, and how it's c
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true
+    "strict": true,
+    "verbatimModuleSyntax": true
   }
 }
 ```
+
+**Key Settings**:
+
+- **ES2022 target**: Modern JavaScript with good Node.js support
+- **ESNext module**: ES modules for modern Node.js
+- **bundler moduleResolution**: Modern resolution strategy
+- **verbatimModuleSyntax**: Explicit import/export type annotations
 
 **Alternatives Considered**:
 
@@ -85,7 +93,7 @@ This document explains why each library was chosen, what it does, and how it's c
 
 ## 🎨 Code Quality & Formatting
 
-### ESLint
+### ESLint ^9.39.1
 
 **What**: Pluggable linting utility for JavaScript and TypeScript
 
@@ -99,27 +107,58 @@ This document explains why each library was chosen, what it does, and how it's c
 
 **Key Plugins**:
 
-- `@typescript-eslint/parser`: Parse TypeScript
-- `@typescript-eslint/eslint-plugin`: TypeScript rules
-- `eslint-config-prettier`: Disable formatting rules (let Prettier handle it)
-- `eslint-plugin-import`: Validate imports
-- `eslint-plugin-jest`: Jest-specific rules
+- `typescript-eslint`: TypeScript rules and parser
+- `eslint-plugin-prettier`: Run Prettier as ESLint rule
+- `eslint-config-prettier`: Disable conflicting formatting rules
+- `globals`: Node.js global definitions
 
-**Configuration Highlights**:
+**Configuration** (Flat Config in `eslint.config.ts`):
 
-```javascript
-{
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier' // Must be last
-  ],
-  rules: {
-    '@typescript-eslint/no-unused-vars': 'error',
-    '@typescript-eslint/explicit-function-return-type': 'warn'
-  }
-}
+```typescript
+import js from '@eslint/js'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+import { defineConfig } from 'eslint/config'
+import eslintPluginPrettier from 'eslint-plugin-prettier'
+import eslintConfigPrettier from 'eslint-config-prettier'
+
+export default defineConfig([
+  {
+    ignores: ['dist/**'],
+  },
+  {
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    plugins: { js, prettier: eslintPluginPrettier },
+    extends: ['js/recommended'],
+    languageOptions: { globals: globals.node },
+    rules: {
+      ...eslintConfigPrettier.rules,
+      'prettier/prettier': 'error',
+      semi: ['error', 'never'],
+      quotes: ['error', 'single', { avoidEscape: true }],
+      'no-console': 'warn',
+    },
+  },
+  {
+    files: ['**/*.{ts,mts,cts}'],
+    extends: [tseslint.configs.recommended],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
+    },
+  },
+])
 ```
+
+**Key Rules**:
+
+- **semi: never**: No semicolons (project style)
+- **quotes: single**: Single quotes only
+- **no-console: warn**: Warns on console usage
+- **no-explicit-any: error**: Never use `any` type
+- **explicit-function-return-type: error**: Always specify return types
+
+**Required Package**: `jiti` is needed to run TypeScript ESLint config files.
 
 **Alternatives Considered**:
 
@@ -127,7 +166,7 @@ This document explains why each library was chosen, what it does, and how it's c
 - **Standard**: Less customizable
 - **Biome**: Too new, smaller ecosystem
 
-### Prettier
+### Prettier ^3.7.3
 
 **What**: Opinionated code formatter
 
@@ -139,24 +178,27 @@ This document explains why each library was chosen, what it does, and how it's c
 - **Multi-Language**: JavaScript, TypeScript, JSON, Markdown, etc.
 - **IDE Integration**: Works with all major editors
 
-**Configuration**:
+**Configuration** (`.prettierrc`):
 
 ```json
 {
-  "semi": true,
-  "trailingComma": "es5",
+  "semi": false,
   "singleQuote": true,
-  "printWidth": 100,
-  "tabWidth": 2
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "printWidth": 80,
+  "arrowParens": "always",
+  "endOfLine": "lf"
 }
 ```
 
 **Why These Settings**:
 
-- **semi**: Semicolons prevent subtle bugs
-- **singleQuote**: More common in JavaScript community
-- **printWidth: 100**: Balance readability and line length
-- **tabWidth: 2**: Industry standard
+- **semi: false**: No semicolons (matches ESLint rule)
+- **singleQuote: true**: Single quotes (matches ESLint rule)
+- **trailingComma: all**: Add trailing commas everywhere
+- **printWidth: 80**: Max line length 80 characters
+- **endOfLine: lf**: Unix-style line endings
 
 **Alternatives Considered**:
 
@@ -175,14 +217,19 @@ This document explains why each library was chosen, what it does, and how it's c
 - **Complementary**: Works alongside Prettier
 - **Simple**: Minimal configuration
 
-**Configuration**:
+**Configuration** (`.editorconfig`):
 
 ```ini
+root = true
+
 [*]
 charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
 ```
 
 **What We DON'T Configure**:
@@ -193,7 +240,7 @@ trim_trailing_whitespace = true
 
 ## 🔧 Git Hooks & Commit Standards
 
-### Husky
+### Husky ^9.1.7
 
 **What**: Git hooks made easy
 
@@ -209,7 +256,9 @@ trim_trailing_whitespace = true
 
 - **pre-commit**: Run lint-staged
 - **commit-msg**: Run commitlint
-- **pre-push**: Run tests (optional)
+- **pre-push**: Run tests
+
+**Setup**: Runs automatically via `prepare` script after `npm install`.
 
 **Alternatives Considered**:
 
@@ -217,7 +266,7 @@ trim_trailing_whitespace = true
 - **pre-commit (Python tool)**: Extra dependency
 - **lefthook**: Less popular
 
-### lint-staged
+### lint-staged ^16.2.7
 
 **What**: Run linters on staged git files
 
@@ -228,12 +277,11 @@ trim_trailing_whitespace = true
 - **Focus**: Doesn't lint entire codebase
 - **Flexible**: Run any command on staged files
 
-**Configuration**:
+**Configuration** (`.lintstagedrc`):
 
 ```json
 {
-  "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
-  "*.{json,md}": ["prettier --write"]
+  "*.{js,ts}": ["eslint --fix", "prettier --write"]
 }
 ```
 
@@ -243,7 +291,7 @@ trim_trailing_whitespace = true
 - **Manual checking**: Easy to forget
 - **Git hooks without lint-staged**: Reinventing the wheel
 
-### commitlint
+### commitlint ^20.1.0
 
 **What**: Lint commit messages
 
@@ -254,19 +302,10 @@ trim_trailing_whitespace = true
 - **Clarity**: Clear commit history
 - **Tooling**: Works with changelog generators
 
-**Configuration**:
+**Configuration** (`commitlint.config.js`):
 
 ```javascript
-{
-  extends: ['@commitlint/config-conventional'],
-  rules: {
-    'type-enum': [
-      2,
-      'always',
-      ['feat', 'fix', 'docs', 'refactor', 'test', 'chore', 'perf', 'ci', 'build', 'revert']
-    ]
-  }
-}
+export default { extends: ['@commitlint/config-conventional'] }
 ```
 
 **Alternatives Considered**:
@@ -277,7 +316,7 @@ trim_trailing_whitespace = true
 
 ## 🧪 Testing
 
-### Jest
+### Jest ^30.2.0
 
 **What**: Delightful JavaScript testing framework
 
@@ -290,17 +329,50 @@ trim_trailing_whitespace = true
 - **Coverage**: Built-in code coverage
 - **Community**: Huge ecosystem and support
 
-**Configuration**:
+**Configuration** (`jest.config.ts`):
 
-```javascript
-{
+```typescript
+import type { Config } from 'jest'
+
+const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   roots: ['<rootDir>/tests'],
-  testMatch: ['**/*.test.ts'],
-  collectCoverageFrom: ['src/**/*.ts']
+  testMatch: ['**/*.test.ts', '**/*.spec.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.types.ts',
+    '!src/**/index.ts',
+  ],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov', 'html', 'json-summary'],
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
+  verbose: true,
+  clearMocks: true,
+  resetMocks: true,
+  restoreMocks: true,
 }
+
+export default config
 ```
+
+**Key Settings**:
+
+- **preset: ts-jest**: TypeScript support
+- **moduleNameMapper**: Support for `@/*` path alias
+- **coverageThreshold: 100%**: Full coverage required
+- **coverageReporters**: Multiple formats including json-summary for badges
 
 **Alternatives Considered**:
 
@@ -309,7 +381,7 @@ trim_trailing_whitespace = true
 - **AVA**: Less popular, minimal advantages
 - **Node Test Runner**: Too basic
 
-### ts-jest
+### ts-jest ^29.4.5
 
 **What**: TypeScript preprocessor for Jest
 
@@ -326,7 +398,7 @@ trim_trailing_whitespace = true
 - **babel-jest**: Less accurate type checking
 - **swc-jest**: Faster but less mature
 
-### @types/jest
+### @types/jest ^30.x.x
 
 **What**: TypeScript definitions for Jest
 
@@ -338,7 +410,7 @@ trim_trailing_whitespace = true
 
 ## 🛠️ Build & Development
 
-### tsx
+### tsx ^4.20.6
 
 **What**: TypeScript Execute - run TypeScript files directly
 
@@ -349,13 +421,23 @@ trim_trailing_whitespace = true
 - **Simple**: No configuration needed
 - **Watch Mode**: Automatic reload on file changes
 
+**Usage**:
+
+```bash
+# Single run
+npm run dev     # tsx src/app/main.ts
+
+# Watch mode
+npm run dev:watch  # tsx watch src/app/main.ts
+```
+
 **Alternatives Considered**:
 
 - **ts-node**: Slower, more configuration
 - **nodemon + ts-node**: Two packages instead of one
 - **tsc + node**: Slow compile step
 
-### rimraf
+### rimraf ^6.1.2
 
 **What**: Cross-platform `rm -rf`
 
@@ -365,11 +447,32 @@ trim_trailing_whitespace = true
 - **Reliable**: Safely delete directories
 - **Simple**: One command to clean build folders
 
+**Usage**: `npm run clean` removes `dist/` and `coverage/`
+
 **Alternatives Considered**:
 
 - **fs.rm**: Node.js built-in but needs scripting
 - **del-cli**: Similar but less popular
 - **Manual scripts**: Platform-specific issues
+
+### npm-check-updates ^19.1.2
+
+**What**: Upgrade package.json dependencies to latest versions
+
+**Why**:
+
+- **Discovery**: Find outdated packages
+- **Interactive**: Choose what to update
+- **Safe**: Review changes before applying
+- **Comprehensive**: Check all dependencies at once
+
+**Usage**: `npm run check` opens interactive upgrade UI
+
+**Alternatives Considered**:
+
+- **npm outdated**: Less interactive
+- **npm update**: Only updates within semver range
+- **Manual checking**: Time consuming
 
 ## 🚀 CI/CD
 
@@ -387,9 +490,8 @@ trim_trailing_whitespace = true
 
 **Workflows**:
 
-1. **CI**: Runs on PRs and pushes (build, lint, test)
-2. **CD**: Deploys to Vercel on main branch
-3. **Release**: Automated semantic versioning
+1. **validate.yml**: Lint, format, typecheck, build
+2. **test.yml**: Run tests with coverage, upload to Codecov
 
 **Alternatives Considered**:
 
@@ -397,25 +499,6 @@ trim_trailing_whitespace = true
 - **Travis CI**: Pricing changes, less popular
 - **CircleCI**: Extra service to manage
 - **GitLab CI**: Would require moving from GitHub
-
-### Vercel
-
-**What**: Platform for deploying web applications
-
-**Why**:
-
-- **Simple**: One command to deploy
-- **Fast**: Edge network for low latency
-- **Preview Deployments**: Automatic for PRs
-- **Serverless**: No server management
-- **Free Tier**: Generous for small projects
-
-**Alternatives Considered**:
-
-- **Heroku**: More expensive, slower deploys
-- **AWS**: More complex setup
-- **Netlify**: Similar but Vercel has better Node.js support
-- **Railway**: Newer, smaller team
 
 ## 🔮 Future Considerations
 

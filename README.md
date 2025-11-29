@@ -11,12 +11,11 @@
 **Node ts** is a general-purpose Node.js TypeScript template designed to serve as a solid foundation for future projects. This template provides everything you need to start a new project with best practices already in place, including:
 
 - 🏗️ **Strict folder structure** - No loose files, organized subfolders for everything
-- 🛠️ **Complete development tooling** - ESLint, Prettier, Husky, commitlint
-- 🧪 **Testing infrastructure** - Jest with unit, integration, and e2e test support
-- 🚀 **CI/CD pipelines** - GitHub Actions with automated testing and Vercel deployment
-- 📝 **Conventional commits** - Enforced for commits and branch names
-- 🐳 **Docker support** - Development and production containerization
-- 📚 **Comprehensive documentation** - Detailed guides for all aspects of the project
+- 🛠️ **Complete development tooling** - ESLint (flat config), Prettier, Husky, commitlint
+- 🧪 **Testing infrastructure** - Jest with 100% coverage threshold
+- 🚀 **CI/CD pipelines** - GitHub Actions with validation and test workflows
+- 📝 **Conventional commits** - Enforced for all commits
+- 📚 **Comprehensive documentation** - Detailed guides for all aspects
 
 ## 🎯 Objectives
 
@@ -24,17 +23,17 @@ This template is intentionally **framework-agnostic** and **database-agnostic**.
 
 1. **Development Environment** - Setting up a robust, consistent development experience
 2. **Code Quality** - Enforcing best practices through linting, formatting, and testing
-3. **Automation** - CI/CD pipelines for testing, deployment, and releases
-4. **Structure** - A scalable, organized folder structure with strict rules
+3. **Automation** - CI/CD pipelines for validation and testing
+4. **Structure** - A scalable, organized folder structure
 5. **Documentation** - Clear guidance for contributors and users
 
 ### Future Plans
 
 This template will serve as the base for specialized templates:
 
-- Mobile application template
 - Backend API template
 - Frontend application template
+- Full-stack template
 - And more...
 
 ## 🚀 Quick Start
@@ -42,6 +41,9 @@ This template will serve as the base for specialized templates:
 ```bash
 # Clone the repository
 git clone https://github.com/Barthmossr/node-ts.git
+
+# Use correct Node.js version
+nvm use
 
 # Install dependencies
 npm install
@@ -58,17 +60,17 @@ npm run build
 
 ## 🛠️ Technology Stack
 
-- **Runtime**: Node.js v24.11.1
-- **Language**: TypeScript
-- **Package Manager**: npm v11.6.2
-- **Testing**: Jest (unit, integration, e2e)
-- **Linting**: ESLint
-- **Formatting**: Prettier
-- **Git Hooks**: Husky + lint-staged
-- **Commit Standards**: commitlint (conventional commits)
-- **CI/CD**: GitHub Actions
-- **Deployment**: Vercel
-- **Containerization**: Docker
+| Tool        | Version  | Purpose                |
+| ----------- | -------- | ---------------------- |
+| Node.js     | v24.11.1 | Runtime                |
+| TypeScript  | ^5.9.3   | Type system            |
+| ESLint      | ^9.39.1  | Linting (flat config)  |
+| Prettier    | ^3.7.3   | Formatting             |
+| Jest        | ^30.2.0  | Testing                |
+| Husky       | ^9.1.7   | Git hooks              |
+| lint-staged | ^16.2.7  | Pre-commit linting     |
+| commitlint  | ^20.1.0  | Commit message linting |
+| tsx         | ^4.20.6  | Direct TS execution    |
 
 ## 📁 Project Structure
 
@@ -76,22 +78,42 @@ npm run build
 node-ts/
 ├── src/
 │   └── app/              # Application code
+│       └── main.ts       # Entry point
 ├── tests/
-│   ├── unit/            # Unit tests
-│   ├── integration/     # Integration tests
-│   └── e2e/             # End-to-end tests
+│   ├── setup.ts          # Global test setup
+│   └── app/
+│       └── main.test.ts  # Tests mirror src/ structure
 ├── docs/
-│   └── guides/          # Documentation files
-├── scripts/
-│   └── utils/           # Utility scripts
+│   ├── CONTRIBUTING.md
+│   ├── README.md
+│   └── guides/           # Documentation files
 ├── .github/
-│   └── workflows/       # CI/CD workflows
-├── docker/
-│   └── configs/         # Docker configuration
-└── package.json
+│   └── workflows/        # CI/CD workflows
+├── .vscode/              # Editor configuration
+└── dist/                 # Build output (git ignored)
 ```
 
 **Strict Rule**: No loose files directly in main directories. All files must be organized in appropriate subfolders.
+
+## 📜 Available Scripts
+
+| Script                  | Description                   |
+| ----------------------- | ----------------------------- |
+| `npm run dev`           | Run TypeScript directly       |
+| `npm run dev:watch`     | Run with hot reload           |
+| `npm run build`         | Compile to JavaScript         |
+| `npm start`             | Run built application         |
+| `npm run typecheck`     | Check TypeScript types        |
+| `npm run lint`          | Check code with ESLint        |
+| `npm run lint:fix`      | Auto-fix ESLint issues        |
+| `npm run format`        | Format with Prettier          |
+| `npm run format:check`  | Check formatting              |
+| `npm run validate`      | Run all quality checks        |
+| `npm test`              | Run tests                     |
+| `npm run test:watch`    | Tests in watch mode           |
+| `npm run test:coverage` | Generate coverage report      |
+| `npm run check`         | Interactive dependency update |
+| `npm run clean`         | Remove build artifacts        |
 
 ## 🌿 Branch Strategy
 
@@ -113,21 +135,13 @@ For detailed documentation, please refer to the `docs/` directory:
 - [Project Overview](docs/guides/project-overview.md) - Architectural decisions and rationale
 - [Library Decisions](docs/guides/libraries.md) - Why each tool was chosen
 - [Development Guide](docs/guides/development.md) - Setup and workflow instructions
-- [Docker Guide](docs/guides/docker.md) - Container setup and usage
 - [Configuration Guide](docs/guides/configuration.md) - Understanding config files
 
 ## 🧪 Testing
 
-This template supports three types of tests:
-
 ```bash
 # Run all tests
 npm test
-
-# Run specific test types
-npm run test:unit
-npm run test:integration
-npm run test:e2e
 
 # Run tests with coverage
 npm run test:coverage
@@ -136,9 +150,21 @@ npm run test:coverage
 npm run test:watch
 ```
 
+Coverage threshold is set to **100%** for branches, functions, lines, and statements.
+
+## ✅ Code Quality
+
+This template enforces:
+
+- **No semicolons** - Cleaner code
+- **Single quotes** - Consistency
+- **No `any` type** - Type safety
+- **Explicit return types** - Self-documenting code
+- **100% test coverage** - Quality assurance
+
 ## 🤝 Contributing
 
-We follow strict conventional commit standards for both commits and branch names. Please read [CONTRIBUTING.md](docs/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+We follow strict conventional commit standards. Please read [CONTRIBUTING.md](docs/CONTRIBUTING.md) for details.
 
 **All pull requests must be made to the `develop` branch, not `main`.**
 
@@ -151,7 +177,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [GitHub Repository](https://github.com/Barthmossr/node-ts)
 - [Issue Tracker](https://github.com/Barthmossr/node-ts/issues)
 - [Documentation](docs/README.md)
-
----
-
-**Note**: This is a template repository. Detailed documentation will be created as features are implemented. For now, this README provides a high-level overview of the project's goals and structure.
