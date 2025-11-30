@@ -81,22 +81,29 @@ nvm use
 
 Without nvm, ensure you have Node.js v24.11.1 installed.
 
-### 3. Install Dependencies
+### 3. Run Setup
+
+**Option 1: Use the setup script (recommended)**
 
 ```bash
-npm install
+./scripts/setup.sh
 ```
 
-This will:
+This script will:
 
-- Install all project dependencies
-- Set up Husky git hooks (via `prepare` script)
-- Prepare the development environment
+- Check Node.js version
+- Install all dependencies
+- Set up Husky git hooks
+- Run validation checks
+- Display available commands
 
-### 4. Verify Setup
+**Option 2: Manual setup**
 
 ```bash
-# Run all validation checks
+# Install dependencies
+npm install
+
+# Verify setup
 npm run validate
 ```
 

@@ -70,11 +70,13 @@ This template will serve as the base for specialized templates:
 ```bash
 # Clone the repository
 git clone https://github.com/Barthmossr/node-ts.git
+cd node-ts
 
-# Use correct Node.js version
+# Option 1: Use the setup script (recommended)
+./scripts/setup.sh
+
+# Option 2: Manual setup
 nvm use
-
-# Install dependencies
 npm install
 
 # Run in development mode
@@ -116,6 +118,8 @@ node-ts/
 │   ├── CONTRIBUTING.md
 │   ├── README.md
 │   └── guides/           # Documentation files
+├── scripts/
+│   └── setup.sh          # Setup script
 ├── .github/
 │   └── workflows/        # CI/CD workflows
 ├── .vscode/              # Editor configuration

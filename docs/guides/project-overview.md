@@ -183,6 +183,8 @@ node-ts/
 │   ├── CONTRIBUTING.md
 │   ├── README.md
 │   └── guides/           # Detailed documentation
+├── scripts/
+│   └── setup.sh          # Setup and utility scripts
 ├── .github/
 │   └── workflows/        # CI/CD automation
 ├── .vscode/              # Editor configuration
