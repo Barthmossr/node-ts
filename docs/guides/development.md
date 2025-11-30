@@ -10,6 +10,8 @@ Complete guide for setting up your development environment and working with this
 - [Project Scripts](#project-scripts)
 - [Testing Guide](#testing-guide)
 - [Building for Production](#building-for-production)
+- [Git Workflow](#git-workflow)
+- [CI/CD](#cicd)
 - [Troubleshooting](#troubleshooting)
 - [Best Practices](#best-practices)
 
@@ -20,13 +22,11 @@ Before you begin, ensure you have the following installed:
 ### Required
 
 - **Node.js v24.11.1**
-
   - Check version: `node --version`
   - Download: [nodejs.org](https://nodejs.org/)
   - We recommend using [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager)
 
 - **npm** (comes with Node.js)
-
   - Check version: `npm --version`
   - Should be v10+ for best compatibility
 
@@ -37,18 +37,22 @@ Before you begin, ensure you have the following installed:
 ### Recommended
 
 - **Visual Studio Code** (or any IDE of your choice)
-
   - Download: [code.visualstudio.com](https://code.visualstudio.com/)
-  - Extensions we recommend:
-    - ESLint
-    - Prettier - Code formatter
-    - EditorConfig for VS Code
-    - GitLens
-    - Jest Runner
 
 - **nvm (Node Version Manager)**
   - Automatically use the correct Node.js version
   - Install: [github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm)
+
+### VS Code Extensions
+
+Extensions are automatically suggested from `.vscode/extensions.json`:
+
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **EditorConfig** - Editor settings
+- **Jest** - Test runner integration
+- **GitLens** - Git history and blame
+- **Conventional Commits** - Commit message helper
 
 ## 🚀 Initial Setup
 
@@ -77,28 +81,33 @@ nvm use
 
 Without nvm, ensure you have Node.js v24.11.1 installed.
 
-### 3. Install Dependencies
+### 3. Run Setup
+
+**Option 1: Use the setup script (recommended)**
 
 ```bash
-npm install
+./scripts/setup.sh
 ```
 
-This will:
+This script will:
 
-- Install all project dependencies
+- Check Node.js version
+- Install all dependencies
 - Set up Husky git hooks
-- Prepare the development environment
+- Run validation checks
+- Display available commands
 
-### 4. Verify Setup
+**Option 2: Manual setup**
 
 ```bash
-# Check if everything is working
-npm run lint
-npm test
-npm run build
+# Install dependencies
+npm install
+
+# Verify setup
+npm run validate
 ```
 
-If all commands succeed, you're ready to develop! 🎉
+If all checks pass, you're ready to develop! 🎉
 
 ## 🔄 Development Workflow
 
@@ -112,48 +121,52 @@ git pull origin develop
 # 2. Create a feature branch
 git checkout -b feat/your-feature-name
 
-# 3. Start development server (when implemented)
-npm run dev
+# 3. Start development server
+npm run dev        # Single run
+npm run dev:watch  # With hot reload
 
-# 4. Make your changes
-# Edit files in src/
-
-# 5. Run tests in watch mode
+# 4. Run tests in watch mode while developing
 npm run test:watch
 
-# 6. Lint and format your code
-npm run lint
-npm run format
+# 5. Before committing, validate your changes
+npm run validate
 
-# 7. Commit your changes (commitlint will enforce standards)
+# 6. Commit your changes (hooks will run automatically)
 git add .
 git commit -m "feat: add new feature"
 
-# 8. Push your branch
+# 7. Push your branch
 git push origin feat/your-feature-name
 
-# 9. Open a Pull Request to develop branch on GitHub
+# 8. Open a Pull Request to develop branch on GitHub
 ```
 
-### Git Hooks
+### Git Hooks (Husky)
 
-Git hooks will automatically run on certain actions:
+Git hooks run automatically on certain actions:
 
 #### pre-commit
 
-Runs automatically before each commit:
+Runs lint-staged which:
 
-- Lints staged files with ESLint
+- Lints staged `.js` and `.ts` files with ESLint
 - Formats staged files with Prettier
 - Prevents commit if there are errors
 
 #### commit-msg
 
-Runs automatically on commit:
+Runs commitlint which:
 
 - Validates commit message format
 - Ensures conventional commits standard
 - Prevents commit if message is invalid
+
+#### pre-push
+
+Runs tests before pushing:
+
+- Ensures all tests pass
+- Prevents push if tests fail
 
 **Example**:
 
@@ -170,243 +183,117 @@ git commit -m "Added authentication"
 
 ### Development Scripts
 
-```bash
-# Start development server with hot reload (when implemented)
-npm run dev
-
-# Watch mode for development
-npm run dev:watch
-```
-
-### Testing Scripts
-
-```bash
-# Run all tests
-npm test
-
-# Run only unit tests
-npm run test:unit
-
-# Run only integration tests
-npm run test:integration
-
-# Run only e2e tests
-npm run test:e2e
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage report
-npm run test:coverage
-
-# Run specific test file
-npm test -- path/to/test.test.ts
-```
-
-### Linting and Formatting
-
-```bash
-# Lint all files
-npm run lint
-
-# Lint and auto-fix issues
-npm run lint:fix
-
-# Format all files with Prettier
-npm run format
-
-# Check formatting without changing files
-npm run format:check
-```
+| Script      | Command                     | Description             |
+| ----------- | --------------------------- | ----------------------- |
+| `dev`       | `tsx src/app/main.ts`       | Run TypeScript directly |
+| `dev:watch` | `tsx watch src/app/main.ts` | Run with hot reload     |
+| `start`     | `node dist/app/main.js`     | Run built application   |
 
 ### Build Scripts
 
-```bash
-# Build for production
-npm run build
+| Script      | Command                      | Description            |
+| ----------- | ---------------------------- | ---------------------- |
+| `build`     | `tsc -p tsconfig.build.json` | Compile TypeScript     |
+| `clean`     | `rimraf dist coverage`       | Remove build artifacts |
+| `typecheck` | `tsc --noEmit`               | Check types only       |
 
-# Clean build directory
-npm run clean
+### Quality Scripts
 
-# Clean and rebuild
-npm run clean:build
-```
+| Script         | Command                           | Description            |
+| -------------- | --------------------------------- | ---------------------- |
+| `lint`         | `eslint .`                        | Check code with ESLint |
+| `lint:fix`     | `eslint . --fix`                  | Auto-fix ESLint issues |
+| `format`       | `prettier --write .`              | Format all files       |
+| `format:check` | `prettier --check .`              | Check formatting       |
+| `validate`     | lint + format + typecheck + build | Run all checks         |
 
-### Utility Scripts
+### Test Scripts
 
-```bash
-# Type check without emitting files
-npm run type-check
+| Script          | Command           | Description              |
+| --------------- | ----------------- | ------------------------ |
+| `test`          | `jest`            | Run all tests            |
+| `test:watch`    | `jest --watch`    | Run in watch mode        |
+| `test:coverage` | `jest --coverage` | Generate coverage report |
 
-# Run all quality checks (lint, format, type-check, test)
-npm run validate
-```
+### Other Scripts
+
+| Script    | Command   | Description                   |
+| --------- | --------- | ----------------------------- |
+| `check`   | `ncu -ui` | Interactive dependency update |
+| `prepare` | `husky`   | Set up git hooks              |
 
 ## 🧪 Testing Guide
 
 ### Test Organization
 
-Tests are organized by type in the `tests/` directory:
+Tests mirror the `src/` structure in the `tests/` directory:
 
 ```
 tests/
-├── unit/              # Fast, isolated tests
-│   └── app/
-│       └── example.test.ts
-├── integration/       # Component interaction tests
-│   └── app/
-│       └── example.integration.test.ts
-└── e2e/              # End-to-end tests
-    └── app/
-        └── example.e2e.test.ts
+├── setup.ts          # Global test setup
+└── app/
+    └── main.test.ts  # Tests for src/app/main.ts
 ```
 
-### Writing Unit Tests
-
-Unit tests test individual functions/classes in isolation.
-
-**Example**:
+### Writing Tests
 
 ```typescript
-// tests/unit/app/math.test.ts
-import { add } from "../../../src/app/math"
+// tests/app/main.test.ts
+import { main } from '@/app/main'
 
-describe("add function", () => {
-  it("should add two numbers correctly", () => {
-    expect(add(2, 3)).toBe(5)
-  })
-
-  it("should handle negative numbers", () => {
-    expect(add(-1, 1)).toBe(0)
-  })
-
-  it("should handle zero", () => {
-    expect(add(0, 5)).toBe(5)
+describe('main', () => {
+  it('should return void', () => {
+    const result = main()
+    expect(result).toBeUndefined()
   })
 })
 ```
 
 **Best Practices**:
 
+- ✅ Use `it('should...')` format for test names
 - ✅ Test one thing per test
-- ✅ Use descriptive test names
-- ✅ Mock external dependencies
+- ✅ Use path alias `@/*` for imports
 - ✅ Test edge cases
-- ✅ Keep tests fast
+- ✅ Keep tests fast and independent
 
-### Writing Integration Tests
-
-Integration tests test multiple components working together.
-
-**Example**:
-
-```typescript
-// tests/integration/app/service.integration.test.ts
-import { UserService } from "../../../src/app/services/user-service"
-import { Database } from "../../../src/app/database"
-
-describe("UserService Integration", () => {
-  let service: UserService
-  let db: Database
-
-  beforeAll(async () => {
-    db = new Database()
-    await db.connect()
-    service = new UserService(db)
-  })
-
-  afterAll(async () => {
-    await db.disconnect()
-  })
-
-  it("should create and retrieve user", async () => {
-    const user = await service.createUser({ name: "John" })
-    const retrieved = await service.getUser(user.id)
-    expect(retrieved.name).toBe("John")
-  })
-})
-```
-
-**Best Practices**:
-
-- ✅ Test real component interactions
-- ✅ Use real dependencies (or realistic fakes)
-- ✅ Clean up after tests
-- ✅ Test happy path and error cases
-
-### Writing E2E Tests
-
-E2E tests test the complete system from user's perspective.
-
-**Example**:
-
-```typescript
-// tests/e2e/app/api.e2e.test.ts
-import request from "supertest"
-import { app } from "../../../src/app/main"
-
-describe("API E2E Tests", () => {
-  it("should handle complete user flow", async () => {
-    // Create user
-    const createResponse = await request(app)
-      .post("/api/users")
-      .send({ name: "John" })
-      .expect(201)
-
-    const userId = createResponse.body.id
-
-    // Get user
-    await request(app)
-      .get(`/api/users/${userId}`)
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.name).toBe("John")
-      })
-
-    // Update user
-    await request(app)
-      .put(`/api/users/${userId}`)
-      .send({ name: "Jane" })
-      .expect(200)
-
-    // Verify update
-    await request(app)
-      .get(`/api/users/${userId}`)
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.name).toBe("Jane")
-      })
-  })
-})
-```
-
-**Best Practices**:
-
-- ✅ Test complete user workflows
-- ✅ Use the application as a black box
-- ✅ Test critical paths
-- ✅ Keep tests independent
-
-### Test Coverage
+### Running Tests
 
 ```bash
+# Run all tests
+npm test
+
+# Watch mode (great for development)
+npm run test:watch
+
 # Generate coverage report
 npm run test:coverage
 ```
 
-Coverage report will be generated in `coverage/` directory.
+### Test Coverage
 
-**Coverage Goals**:
+Coverage thresholds are set to **100%** for:
 
-- Overall: 80%+
-- Critical paths: 100%
-- New code: 90%+
+- Branches
+- Functions
+- Lines
+- Statements
 
-**View Coverage**:
+Coverage reports are generated in multiple formats:
+
+- `text`: Console output
+- `lcov`: For CI tools
+- `html`: Visual report in `coverage/`
+- `json-summary`: For badges
+
+**View Coverage Report**:
 
 ```bash
-# Open HTML coverage report
+# Open HTML coverage report (macOS)
 open coverage/lcov-report/index.html
+
+# Open HTML coverage report (Windows)
+start coverage/lcov-report/index.html
 ```
 
 ## 🏗️ Building for Production
@@ -420,29 +307,114 @@ npm run build
 
 This will:
 
-1. Clean the `dist/` directory
-2. Compile TypeScript to JavaScript
-3. Generate source maps
-4. Copy necessary assets
+1. Compile TypeScript to JavaScript using `tsconfig.build.json`
+2. Output to `dist/` directory
+3. Generate source maps and declaration files
 
 ### Build Output
 
 ```
 dist/
-├── app/
-│   └── main.js
-└── ...
+└── app/
+    └── main.js
 ```
 
 ### Test Production Build
 
 ```bash
-# Build
+# Build and run
 npm run build
-
-# Run the built application
-node dist/app/main.js
+npm start
 ```
+
+## 🔄 Git Workflow
+
+### Branching Strategy
+
+- **main**: Production-ready code
+- **develop**: Integration branch
+- **feat/\***: New features
+- **fix/\***: Bug fixes
+- **chore/\***: Maintenance tasks
+
+### Commit Messages
+
+Follow Conventional Commits specification:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Types**:
+
+- **feat**: New feature
+- **fix**: Bug fix
+- **docs**: Documentation only
+- **style**: Code style (formatting, no logic change)
+- **refactor**: Code change that neither fixes a bug nor adds a feature
+- **perf**: Performance improvement
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks
+- **ci**: CI/CD changes
+- **build**: Build system changes
+
+**Examples**:
+
+```bash
+feat: add user authentication
+fix: resolve login timeout issue
+docs: update API documentation
+chore: update dependencies
+```
+
+### Pull Request Process
+
+1. Create feature branch from `develop`
+2. Make changes with conventional commits
+3. Ensure all checks pass (`npm run validate`)
+4. Create PR to `develop`
+5. Request review
+6. Merge after approval
+
+## 🚢 CI/CD
+
+### GitHub Actions Workflows
+
+Two workflows are configured in `.github/workflows/`:
+
+#### validate.yml
+
+Runs on every push and PR:
+
+1. Checkout code
+2. Setup Node.js (from `.nvmrc`)
+3. Install dependencies (`npm ci`)
+4. Run lint check
+5. Run format check
+6. Run type check
+7. Build project
+
+#### test.yml
+
+Runs on every push and PR:
+
+1. Checkout code
+2. Setup Node.js
+3. Install dependencies
+4. Run tests with coverage
+5. Upload coverage to Codecov
+6. Generate coverage badge
+7. Upload artifacts
+
+### Required Secrets
+
+For full CI/CD functionality, add these secrets in GitHub:
+
+- `CODECOV_TOKEN`: For coverage uploads (optional but recommended)
 
 ## 🐛 Troubleshooting
 
@@ -458,6 +430,13 @@ node dist/app/main.js
 nvm install 24.11.1
 ```
 
+#### Issue: Node.js Version Mismatch
+
+```bash
+# Error: The engine "node" is incompatible
+nvm use
+```
+
 #### Issue: `Cannot find module`
 
 **Solution**: Install dependencies
@@ -467,6 +446,15 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
+#### Issue: ESLint Config Not Loading
+
+```bash
+# Error: Cannot find module 'jiti'
+npm install
+```
+
+The `jiti` package is required for TypeScript ESLint config files.
+
 #### Issue: Git hooks not working
 
 **Solution**: Reinstall Husky
@@ -475,32 +463,23 @@ npm install
 npm run prepare
 ```
 
-#### Issue: Tests failing
+#### Issue: TypeScript errors in tests
 
-**Solution**: Check Node.js version and dependencies
+Ensure `tsconfig.json` includes both `src` and `tests`:
 
-```bash
-node --version  # Should be v24.11.1
-npm ci  # Clean install
-npm test
+```json
+{
+  "include": ["src/**/*", "tests/**/*"]
+}
 ```
 
-#### Issue: Lint errors
+#### Issue: Coverage Below Threshold
 
-**Solution**: Auto-fix what can be fixed
-
-```bash
-npm run lint:fix
-npm run format
-```
-
-#### Issue: TypeScript errors
-
-**Solution**: Check TypeScript configuration
+Coverage must be 100%. Check the detailed report:
 
 ```bash
-npm run type-check
-# Fix errors shown in output
+npm run test:coverage
+# Open coverage/lcov-report/index.html
 ```
 
 ### Getting Help
@@ -509,40 +488,25 @@ npm run type-check
 2. **Search Issues**: Look for similar issues on GitHub
 3. **Ask for Help**: Open an issue with the `question` label
 
-### Debug Mode
-
-For more verbose output:
-
-```bash
-# Debug Jest tests
-DEBUG=* npm test
-
-# Debug with Node.js inspector
-node --inspect-brk node_modules/.bin/jest --runInBand
-
-# TypeScript verbose
-npm run build -- --verbose
-```
-
 ## 💡 Best Practices
 
 ### Code Style
 
 - ✅ Use TypeScript strict mode
-- ✅ Define explicit return types
-- ✅ Avoid `any` type
-- ✅ Use meaningful variable names
-- ✅ Keep functions small and focused
-- ✅ Write self-documenting code
-- ✅ Add comments for complex logic
+- ✅ Define explicit return types for all functions
+- ✅ Never use `any` type
+- ✅ Use single quotes (no semicolons)
+- ✅ Keep functions under 20 lines
+- ✅ Keep files under 100 lines
+- ✅ Use path aliases (`@/*`) for imports
 
 ### File Organization
 
 - ✅ Follow the folder structure
-- ✅ One class/function per file (when large)
-- ✅ Group related files in subdirectories
-- ✅ Use index.ts for exports
-- ✅ Keep files under 300 lines
+- ✅ Types in `*.types.ts` files
+- ✅ Styles in `*.styles.ts` files
+- ✅ Use `index.ts` for module exports
+- ✅ Never export inline with declarations
 
 ### Git Workflow
 
@@ -550,36 +514,28 @@ npm run build -- --verbose
 - ✅ Keep commits focused and atomic
 - ✅ Branch from develop, not main
 - ✅ Pull before pushing
-- ✅ Rebase to keep history clean
+- ✅ Use conventional commit format
 
 ### Testing
 
-- ✅ Write tests before fixing bugs
+- ✅ Write tests alongside code
 - ✅ Test edge cases
-- ✅ Use descriptive test names
+- ✅ Use `it('should...')` format
 - ✅ Keep tests independent
-- ✅ Don't test implementation details
-
-### Performance
-
-- ✅ Avoid premature optimization
-- ✅ Profile before optimizing
-- ✅ Use async/await properly
-- ✅ Clean up resources (close connections, clear timers)
+- ✅ Aim for 100% coverage
 
 ## 🎯 Development Checklist
 
 Before submitting a PR, ensure:
 
-- [ ] Code follows style guidelines
+- [ ] Code follows style guidelines (no semi, single quotes)
 - [ ] All tests pass
 - [ ] New tests added for new features
-- [ ] Code coverage maintained
-- [ ] No TypeScript errors
-- [ ] No ESLint warnings
-- [ ] Documentation updated
+- [ ] Code coverage is 100%
+- [ ] No TypeScript errors (`npm run typecheck`)
+- [ ] No ESLint warnings (`npm run lint`)
+- [ ] Code is formatted (`npm run format:check`)
 - [ ] Commit messages follow conventions
-- [ ] Branch name follows conventions
 - [ ] CI checks pass
 
 ## 🔗 Related Guides
@@ -587,7 +543,7 @@ Before submitting a PR, ensure:
 - [Project Overview](project-overview.md) - Understanding the project
 - [Libraries](libraries.md) - Why we chose these tools
 - [Configuration](configuration.md) - Configuration details
-- [Contributing](../../CONTRIBUTING.md) - Contribution guidelines
+- [Contributing](../CONTRIBUTING.md) - Contribution guidelines
 
 ---
 

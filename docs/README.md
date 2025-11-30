@@ -23,7 +23,6 @@ Start here if you're new to this template:
 Essential guides for day-to-day development:
 
 2. **[Development Guide](guides/development.md)** 🛠️
-
    - Setup your development environment
    - Learn the development workflow
    - Run tests and build the project
@@ -45,21 +44,11 @@ Understanding the tools we use:
    - Configuration explanations
    - Future considerations (Bun, Biome)
 
-### Deployment
-
-Containerization and deployment:
-
-5. **[Docker Guide](guides/docker.md)** 🐳
-   - Development and production Docker setup
-   - Docker Compose configuration
-   - Best practices for containerization
-   - Troubleshooting Docker issues
-
 ### Contributing
 
 If you want to contribute:
 
-6. **[Contributing Guidelines](./CONTRIBUTING.md)** 🤝
+5. **[Contributing Guidelines](./CONTRIBUTING.md)** 🤝
    - Branch strategy and workflow
    - Commit message standards
    - Pull request process
@@ -81,12 +70,6 @@ If you want to contribute:
 2. Understand [Project Overview](guides/project-overview.md)
 3. Follow [Development Guide](guides/development.md)
 
-**I'm deploying this application:**
-
-1. Check [Docker Guide](guides/docker.md)
-2. Review [Configuration Guide](guides/configuration.md)
-3. Follow [Development Guide](guides/development.md) for build steps
-
 **I'm customizing the template:**
 
 1. Understand [Project Overview](guides/project-overview.md)
@@ -101,11 +84,10 @@ If you want to contribute:
 | **Setup and workflow**      | [Development Guide](guides/development.md)     |
 | **Configuration files**     | [Configuration Guide](guides/configuration.md) |
 | **Tool choices**            | [Libraries](guides/libraries.md)               |
-| **Containerization**        | [Docker Guide](guides/docker.md)               |
 | **Branch strategy**         | [Contributing Guidelines](CONTRIBUTING.md)     |
 | **Commit standards**        | [Contributing Guidelines](CONTRIBUTING.md)     |
 | **Testing strategy**        | [Development Guide](guides/development.md)     |
-| **CI/CD pipelines**         | [Docker Guide](guides/docker.md)               |
+| **CI/CD pipelines**         | [Development Guide](guides/development.md)     |
 
 ## 📖 Reading Order
 
@@ -120,9 +102,7 @@ We recommend reading the documentation in this order:
    ↓
 4. Configuration Guide        (customize settings)
    ↓
-5. Docker Guide              (deploy your app)
-   ↓
-6. Contributing Guidelines    (contribute back)
+5. Contributing Guidelines    (contribute back)
 ```
 
 ## 🎓 Key Concepts
@@ -131,7 +111,7 @@ Before diving into the guides, familiarize yourself with these key concepts:
 
 ### Conventional Commits
 
-All commits and branch names follow the [Conventional Commits](https://www.conventionalcommits.org/) standard.
+All commits follow the [Conventional Commits](https://www.conventionalcommits.org/) standard.
 
 **Example**: `feat: add user authentication`
 
@@ -145,19 +125,20 @@ All commits and branch names follow the [Conventional Commits](https://www.conve
 
 **Learn more**: [Contributing Guidelines](CONTRIBUTING.md#branch-strategy)
 
-### Test Types
+### Test Coverage
 
-- **Unit Tests** - Test individual functions in isolation
-- **Integration Tests** - Test component interactions
-- **E2E Tests** - Test complete user flows
+100% test coverage is required. Tests mirror the `src/` structure in `tests/`.
 
 **Learn more**: [Development Guide](guides/development.md#testing-guide)
 
-### Strict Folder Structure
+### Code Style
 
-No loose files at the root of any directory. Everything in organized subfolders.
+- No semicolons
+- Single quotes
+- No `any` type
+- Explicit function return types
 
-**Learn more**: [Project Overview](guides/project-overview.md#folder-structure-rationale)
+**Learn more**: [Configuration Guide](guides/configuration.md#eslint-configuration)
 
 ## 🔍 Finding What You Need
 
@@ -167,7 +148,7 @@ No loose files at the root of any directory. Everything in organized subfolders.
 → [Development Guide - Initial Setup](guides/development.md#initial-setup)
 
 **"Why did we choose TypeScript?"**
-→ [Libraries - TypeScript](guides/libraries.md#typescript)
+→ [Libraries - TypeScript](guides/libraries.md#typescript-593)
 
 **"What does tsconfig.json do?"**
 → [Configuration Guide - TypeScript Configuration](guides/configuration.md#typescript-configuration)
@@ -175,17 +156,14 @@ No loose files at the root of any directory. Everything in organized subfolders.
 **"How do I write tests?"**
 → [Development Guide - Testing Guide](guides/development.md#testing-guide)
 
-**"How do I deploy with Docker?"**
-→ [Docker Guide - Production Setup](guides/docker.md#production-setup)
-
 **"What are the branch naming rules?"**
 → [Contributing Guidelines - Branch Strategy](CONTRIBUTING.md#branch-strategy)
 
 **"How do I configure ESLint?"**
 → [Configuration Guide - ESLint Configuration](guides/configuration.md#eslint-configuration)
 
-**"Why is the folder structure so strict?"**
-→ [Project Overview - Strict Folder Structure](guides/project-overview.md#1-strict-folder-structure)
+**"What scripts are available?"**
+→ [Development Guide - Project Scripts](guides/development.md#project-scripts)
 
 ## 🛠️ Common Tasks
 
@@ -198,8 +176,8 @@ Quick links to common tasks:
 | Build for production     | [Development Guide](guides/development.md)     | Building for Production  |
 | Create a PR              | [Contributing Guidelines](CONTRIBUTING.md)     | Pull Request Process     |
 | Add a new library        | [Libraries](guides/libraries.md)               | Decision Matrix          |
-| Configure CI/CD          | [Docker Guide](guides/docker.md)               | CI/CD with Docker        |
 | Update TypeScript config | [Configuration Guide](guides/configuration.md) | TypeScript Configuration |
+| Check dependencies       | [Development Guide](guides/development.md)     | Project Scripts          |
 
 ## 📝 Documentation Standards
 
@@ -239,9 +217,10 @@ Additional learning resources:
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
 - [Jest Documentation](https://jestjs.io/docs/getting-started)
 - [ESLint Documentation](https://eslint.org/docs/latest/)
+- [ESLint Flat Config](https://eslint.org/docs/latest/use/configure/configuration-files-new)
 - [Prettier Documentation](https://prettier.io/docs/en/)
 - [Conventional Commits](https://www.conventionalcommits.org/)
-- [Docker Documentation](https://docs.docker.com/)
+- [Husky](https://typicode.github.io/husky/)
 
 ## 📞 Contact
 

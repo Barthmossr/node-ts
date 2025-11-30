@@ -29,11 +29,15 @@ The heart of your Node.js project.
   "author": "Barthmossr",
   "license": "MIT",
   "private": false,
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/Barthmossr/node-ts.git"
   },
-  "keywords": ["nodejs", "typescript", "template", "boilerplate"]
+  "keywords": ["nodejs", "typescript", "template", "boilerplate"],
+  "engines": {
+    "node": "24.11.1"
+  }
 }
 ```
 
@@ -46,76 +50,80 @@ The heart of your Node.js project.
 - **author**: Your name or organization
 - **license**: License type (MIT in our case)
 - **private**: Set to `true` to prevent accidental publishing
+- **type**: Set to `module` for ES modules support
 - **repository**: Git repository URL
 - **keywords**: Help others find your package
+- **engines**: Specifies the Node.js version required
 
 ### Scripts
 
 ```json
 {
   "scripts": {
-    "dev": "tsx watch src/app/main.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx src/app/main.ts",
+    "dev:watch": "tsx watch src/app/main.ts",
     "start": "node dist/app/main.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "rimraf dist coverage",
+    "validate": "npm run lint && npm run format:check && npm run typecheck && npm run build",
+    "check": "ncu -ui",
     "test": "jest",
-    "test:unit": "jest tests/unit",
-    "test:integration": "jest tests/integration",
-    "test:e2e": "jest tests/e2e",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write \"**/*.{ts,js,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
-    "type-check": "tsc --noEmit",
-    "clean": "rimraf dist coverage",
-    "validate": "npm run lint && npm run format:check && npm run type-check && npm test",
-    "prepare": "husky install"
+    "prepare": "husky"
   }
 }
 ```
 
 **Scripts Explained**:
 
-- **dev**: Development mode with hot reload
-- **build**: Compile TypeScript to JavaScript
+- **build**: Compile TypeScript to JavaScript using build config
+- **dev**: Run TypeScript directly with tsx
+- **dev:watch**: Development mode with hot reload
 - **start**: Run the built application
-- **test**: Run all tests
-- **test:unit/integration/e2e**: Run specific test types
-- **test:watch**: Run tests in watch mode
-- **test:coverage**: Generate coverage report
+- **typecheck**: Check TypeScript types without building
 - **lint**: Check code with ESLint
 - **lint:fix**: Auto-fix linting issues
 - **format**: Format code with Prettier
 - **format:check**: Check if code is formatted
-- **type-check**: Check TypeScript types without building
-- **clean**: Remove build artifacts
-- **validate**: Run all checks (CI uses this)
+- **clean**: Remove build artifacts (dist and coverage)
+- **validate**: Run all quality checks (lint, format, typecheck, build)
+- **check**: Interactive dependency update check with npm-check-updates
+- **test**: Run all tests
+- **test:watch**: Run tests in watch mode
+- **test:coverage**: Generate coverage report
 - **prepare**: Set up Husky hooks (runs after npm install)
 
-### Dependencies vs DevDependencies
+### Dependencies
 
 ```json
 {
-  "dependencies": {
-    // Runtime dependencies - needed in production
-  },
   "devDependencies": {
-    // Development dependencies - only needed during development
-    "@types/jest": "^29.x.x",
+    "@commitlint/cli": "^20.x.x",
+    "@commitlint/config-conventional": "^20.x.x",
+    "@eslint/js": "^9.x.x",
+    "@types/jest": "^30.x.x",
     "@types/node": "^24.x.x",
-    "@typescript-eslint/eslint-plugin": "^6.x.x",
-    "@typescript-eslint/parser": "^6.x.x",
-    "eslint": "^8.x.x",
-    "eslint-config-prettier": "^9.x.x",
-    "husky": "^8.x.x",
-    "jest": "^29.x.x",
-    "lint-staged": "^15.x.x",
+    "eslint": "^9.x.x",
+    "eslint-config-prettier": "^10.x.x",
+    "eslint-plugin-prettier": "^5.x.x",
+    "globals": "^16.x.x",
+    "husky": "^9.x.x",
+    "jest": "^30.x.x",
+    "jiti": "^2.x.x",
+    "lint-staged": "^16.x.x",
+    "npm-check-updates": "^19.x.x",
     "prettier": "^3.x.x",
-    "rimraf": "^5.x.x",
+    "rimraf": "^6.x.x",
     "ts-jest": "^29.x.x",
     "tsx": "^4.x.x",
-    "typescript": "^5.x.x"
+    "typescript": "^5.x.x",
+    "typescript-eslint": "^8.x.x"
   }
 }
 ```
@@ -126,156 +134,152 @@ The heart of your Node.js project.
 
 ### tsconfig.json
 
-Main TypeScript configuration:
+Main TypeScript configuration for editor support and type checking:
 
 ```json
 {
   "compilerOptions": {
-    // Language and Environment
-    "target": "ES2022", // Target JavaScript version
-    "lib": ["ES2022"], // Include standard library features
-    "module": "commonjs", // Module system (CommonJS for Node.js)
-
-    // Emit
-    "outDir": "./dist", // Output directory for compiled files
-    "rootDir": "./src", // Root directory of source files
-    "sourceMap": true, // Generate .map files for debugging
-    "declaration": true, // Generate .d.ts declaration files
-    "declarationMap": true, // Generate .d.ts.map files
-    "removeComments": true, // Remove comments in output
-
-    // Modules
-    "moduleResolution": "node", // Module resolution strategy
-    "esModuleInterop": true, // Enable CommonJS/ES module interop
-    "allowSyntheticDefaultImports": true, // Allow default imports from modules
-    "resolveJsonModule": true, // Allow importing .json files
-
-    // Type Checking
-    "strict": true, // Enable all strict type-checking options
-    "noImplicitAny": true, // Error on expressions with implied 'any'
-    "strictNullChecks": true, // Strict null checking
-    "strictFunctionTypes": true, // Strict function types
-    "strictBindCallApply": true, // Strict bind/call/apply
-    "strictPropertyInitialization": true, // Strict property initialization
-    "noImplicitThis": true, // Error on 'this' with implied 'any'
-    "alwaysStrict": true, // Parse in strict mode
-
-    // Additional Checks
-    "noUnusedLocals": true, // Error on unused local variables
-    "noUnusedParameters": true, // Error on unused parameters
-    "noImplicitReturns": true, // Error on missing return statements
-    "noFallthroughCasesInSwitch": true, // Error on fallthrough cases in switch
-
-    // Interop Constraints
-    "forceConsistentCasingInFileNames": true, // Ensure consistent file name casing
-    "skipLibCheck": true // Skip type checking of declaration files
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022"],
+    "moduleResolution": "bundler",
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true
   },
-  "include": ["src/**/*"], // Files to include
-  "exclude": ["node_modules", "dist", "tests"] // Files to exclude
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
 ```
 
 **Why These Settings**:
 
 - **target: ES2022**: Modern JavaScript with good Node.js support
-- **strict: true**: Catch more errors at compile time
-- **sourceMap: true**: Debug TypeScript in production
-- **declaration: true**: Generate types for library consumers
-- **noUnusedLocals/Parameters**: Prevent dead code
+- **module: ESNext**: ES modules for modern Node.js
+- **moduleResolution: bundler**: Modern resolution strategy
+- **paths**: Path alias `@/*` maps to `src/*` for clean imports
+- **strict: true**: All strict type-checking options enabled
+- **noUncheckedIndexedAccess**: Safer array/object access
+- **verbatimModuleSyntax**: Enforce explicit import/export type annotations
 - **skipLibCheck**: Faster compilation
 
-### tsconfig.build.json (Optional)
+### tsconfig.build.json
 
-For production builds with stricter settings:
+For production builds (excludes tests):
 
 ```json
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "sourceMap": false, // No source maps in production
-    "declaration": false, // No declaration files needed
-    "removeComments": true // Remove all comments
+    "rootDir": "./src"
   },
-  "exclude": ["node_modules", "dist", "tests", "**/*.test.ts"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests"]
 }
 ```
 
-**Usage**: `tsc --project tsconfig.build.json`
+**Why Separate Build Config**:
+
+- Main `tsconfig.json` includes tests for editor support
+- Build config only compiles source files
+- Prevents test files from appearing in `dist/`
 
 ## 🎨 ESLint Configuration
 
-### .eslintrc.json
+### eslint.config.ts (Flat Config)
 
-```json
-{
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2022,
-    "sourceType": "module",
-    "project": "./tsconfig.json"
-  },
-  "env": {
-    "node": true,
-    "es2022": true,
-    "jest": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier"
-  ],
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    // TypeScript
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      { "argsIgnorePattern": "^_" }
-    ],
-    "@typescript-eslint/explicit-function-return-type": "warn",
-    "@typescript-eslint/no-explicit-any": "error",
-    "@typescript-eslint/no-non-null-assertion": "warn",
+We use ESLint's modern flat config format with TypeScript:
 
-    // General
-    "no-console": ["warn", { "allow": ["warn", "error"] }],
-    "no-debugger": "error",
-    "prefer-const": "error",
-    "no-var": "error"
+```typescript
+import js from '@eslint/js'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+import { defineConfig } from 'eslint/config'
+import eslintPluginPrettier from 'eslint-plugin-prettier'
+import eslintConfigPrettier from 'eslint-config-prettier'
+
+export default defineConfig([
+  {
+    ignores: ['dist/**'],
   },
-  "ignorePatterns": ["dist", "coverage", "node_modules"]
-}
+  {
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    plugins: { js, prettier: eslintPluginPrettier },
+    extends: ['js/recommended'],
+    languageOptions: { globals: globals.node },
+    rules: {
+      ...eslintConfigPrettier.rules,
+      'prettier/prettier': 'error',
+      semi: ['error', 'never'],
+      quotes: ['error', 'single', { avoidEscape: true }],
+      'no-console': 'warn',
+    },
+  },
+  {
+    files: ['**/*.{ts,mts,cts}'],
+    extends: [tseslint.configs.recommended],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
+    },
+  },
+])
 ```
 
 **Key Rules Explained**:
 
-- **no-unused-vars**: Prevent unused variables (allow `_` prefix for intentionally unused)
-- **explicit-function-return-type**: Enforce explicit return types (warn level)
-- **no-explicit-any**: Prevent use of `any` type
-- **no-console**: Warn on console.log (allow warn/error)
-- **prefer-const**: Use const when variable isn't reassigned
+- **semi: never**: No semicolons (project style)
+- **quotes: single**: Single quotes only
+- **no-console: warn**: Warns on console usage (use custom loggers)
+- **no-explicit-any: error**: Never use `any` type
+- **explicit-function-return-type: error**: Always specify return types
 
-### .eslintignore
-
-```
-node_modules
-dist
-coverage
-*.config.js
-```
+**Required Package**: `jiti` is needed to run TypeScript ESLint config files.
 
 ## 💅 Prettier Configuration
 
-### .prettierrc.json
+### .prettierrc
 
 ```json
 {
-  "semi": true,
-  "trailingComma": "es5",
+  "semi": false,
   "singleQuote": true,
-  "printWidth": 100,
+  "trailingComma": "all",
   "tabWidth": 2,
-  "useTabs": false,
+  "printWidth": 80,
   "arrowParens": "always",
   "endOfLine": "lf"
 }
@@ -283,14 +287,13 @@ coverage
 
 **Settings Explained**:
 
-- **semi**: Add semicolons (safer, prevents ASI issues)
-- **trailingComma**: Add trailing commas in ES5 (objects, arrays)
-- **singleQuote**: Use single quotes (community standard)
-- **printWidth**: Max line length 100 characters
-- **tabWidth**: 2 spaces for indentation
-- **useTabs**: Use spaces, not tabs
-- **arrowParens**: Always use parentheses in arrow functions
-- **endOfLine**: Use LF line endings (Unix-style)
+- **semi: false**: No semicolons (matches ESLint rule)
+- **singleQuote: true**: Use single quotes (matches ESLint rule)
+- **trailingComma: all**: Add trailing commas everywhere
+- **tabWidth: 2**: 2 spaces for indentation
+- **printWidth: 80**: Max line length 80 characters
+- **arrowParens: always**: Always use parentheses in arrow functions
+- **endOfLine: lf**: Use LF line endings (Unix-style)
 
 ### .prettierignore
 
@@ -298,90 +301,73 @@ coverage
 node_modules
 dist
 coverage
-package-lock.json
-*.md
+build
 ```
-
-**Note**: We actually format `.md` files, so remove `*.md` if you want markdown formatting.
 
 ## 🧪 Jest Configuration
 
-### jest.config.js
+### jest.config.ts
 
-```javascript
-module.exports = {
-  // Use ts-jest preset
-  preset: "ts-jest",
+```typescript
+import type { Config } from 'jest'
 
-  // Test environment
-  testEnvironment: "node",
-
-  // Root directories for tests
-  roots: ["<rootDir>/tests"],
-
-  // Test file patterns
-  testMatch: ["**/*.test.ts", "**/*.spec.ts"],
-
-  // Module paths
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
-
-  // Coverage
+const config: Config = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  roots: ['<rootDir>/tests'],
+  testMatch: ['**/*.test.ts', '**/*.spec.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   collectCoverageFrom: [
-    "src/**/*.ts",
-    "!src/**/*.d.ts",
-    "!src/**/*.interface.ts",
-    "!src/**/*.type.ts",
+    'src/**/*.ts',
+    '!src/**/*.types.ts',
+    '!src/**/index.ts',
   ],
-
-  coverageDirectory: "coverage",
-
-  coverageThresholds: {
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov', 'html', 'json-summary'],
+  coverageThreshold: {
     global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
     },
   },
-
-  // Transform
-  transform: {
-    "^.+\\.ts$": "ts-jest",
-  },
-
-  // Setup files
-  setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
-
-  // Clear mocks between tests
+  verbose: true,
   clearMocks: true,
   resetMocks: true,
   restoreMocks: true,
 }
+
+export default config
 ```
 
 **Settings Explained**:
 
-- **preset**: Use ts-jest for TypeScript support
-- **testEnvironment**: Node.js environment (not browser)
-- **testMatch**: Pattern for test files
-- **collectCoverageFrom**: What to include in coverage
-- **coverageThresholds**: Minimum coverage requirements
-- **clearMocks**: Reset mocks between tests
+- **preset: ts-jest**: TypeScript support for Jest
+- **testEnvironment: node**: Node.js environment (not browser)
+- **roots**: Tests located in `tests/` directory
+- **moduleNameMapper**: Support for `@/*` path alias
+- **setupFilesAfterEnv**: Global test setup file
+- **coverageThreshold**: 100% coverage required
+- **coverageReporters**: Multiple report formats including json-summary for badges
+- **clearMocks/resetMocks/restoreMocks**: Clean slate between tests
 
-### Separate Configs (Optional)
+### tests/setup.ts
 
-You can create separate configs for each test type:
+Global test setup file:
 
-**jest.unit.config.js**:
+```typescript
+beforeAll(() => {
+  // Global setup before all tests
+})
 
-```javascript
-module.exports = {
-  ...require("./jest.config"),
-  testMatch: ["**/tests/unit/**/*.test.ts"],
-}
+afterAll(() => {
+  // Global cleanup after all tests
+})
 ```
-
-**Usage**: `jest --config jest.unit.config.js`
 
 ## 🔧 Git Configuration
 
@@ -389,128 +375,126 @@ module.exports = {
 
 ```
 # Dependencies
-node_modules/
+node_modules
 
 # Build output
-dist/
-build/
-*.tsbuildinfo
+dist
 
-# Testing
-coverage/
-.nyc_output/
+# Test coverage
+coverage
 
-# Environment variables
+# IDE
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
 .env
 .env.local
 .env.*.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
 # Logs
-logs/
+logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# Runtime
-pids/
-*.pid
-*.seed
-*.pid.lock
-
-# Misc
-.cache/
-.temp/
+# Cache
+.cache
+*.tsbuildinfo
 ```
 
-### .gitattributes
+### Git Hooks (Husky)
 
-```
-# Auto detect text files and perform LF normalization
-* text=auto
+**.husky/pre-commit**:
 
-# Force LF for source code
-*.ts text eol=lf
-*.js text eol=lf
-*.json text eol=lf
-*.md text eol=lf
-*.yml text eol=lf
-*.yaml text eol=lf
-
-# Binary files
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-*.ico binary
-*.pdf binary
+```bash
+npx lint-staged
 ```
 
-**Why**: Ensures consistent line endings across different operating systems.
+**.husky/commit-msg**:
+
+```bash
+npx --no -- commitlint --edit $1
+```
+
+**.husky/pre-push**:
+
+```bash
+npm test
+```
+
+### lint-staged (.lintstagedrc)
+
+```json
+{
+  "*.{js,ts}": ["eslint --fix", "prettier --write"]
+}
+```
+
+### commitlint (commitlint.config.js)
+
+```javascript
+export default { extends: ['@commitlint/config-conventional'] }
+```
 
 ## 📝 Editor Configuration
 
 ### .editorconfig
 
 ```ini
-# EditorConfig is awesome: https://EditorConfig.org
-
-# Top-most EditorConfig file
 root = true
 
-# Unix-style newlines with a newline ending every file
 [*]
 charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# Markdown files (preserve trailing spaces for line breaks)
 [*.md]
 trim_trailing_whitespace = false
 ```
 
-**What We DON'T Set**:
-
-- **indent_style**: Let Prettier handle it
-- **indent_size**: Let Prettier handle it
-- **max_line_length**: Let Prettier handle it
-
-**Why**: EditorConfig handles basic text file settings, Prettier handles all formatting.
-
-### .vscode/settings.json (Recommended)
+### .vscode/settings.json
 
 ```json
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "files.eol": "\n",
   "files.insertFinalNewline": true,
-  "files.trimTrailingWhitespace": true
+  "files.trimTrailingWhitespace": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.trimTrailingWhitespace": false
+  }
 }
 ```
 
-**Requires Extensions**:
+**Key Settings**:
 
-- ESLint
-- Prettier - Code formatter
+- **typescript.tsdk**: Use project's TypeScript version
+- **formatOnSave**: Auto-format with Prettier
+- **codeActionsOnSave**: Auto-fix ESLint issues
 
-### .vscode/extensions.json (Recommended)
+### .vscode/extensions.json
 
 ```json
 {
@@ -518,15 +502,31 @@ trim_trailing_whitespace = false
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "editorconfig.editorconfig",
-    "firsttris.vscode-jest-runner",
-    "eamodio.gitlens"
+    "orta.vscode-jest",
+    "eamodio.gitlens",
+    "vivaxy.vscode-conventional-commits"
   ]
 }
 ```
 
+**Recommended Extensions**:
+
+- **ESLint**: Linting integration
+- **Prettier**: Code formatting
+- **EditorConfig**: Basic editor settings
+- **Jest**: Test runner integration
+- **GitLens**: Git history and blame
+- **Conventional Commits**: Commit message helper
+
 ## 📌 Node Version
 
 ### .nvmrc
+
+```
+24.11.1
+```
+
+### .node-version
 
 ```
 24.11.1
@@ -538,36 +538,9 @@ trim_trailing_whitespace = false
 nvm use
 ```
 
-### .node-version
-
-```
-24.11.1
-```
-
-**Usage**: Some tools automatically detect this file.
-
-**Why Both**: Different tools support different files. Include both for maximum compatibility.
+**Why Both Files**: Different tools support different files. Include both for maximum compatibility.
 
 ## 🌍 Environment Variables
-
-### .env (Not in git)
-
-```bash
-# Node environment
-NODE_ENV=development
-
-# Application
-APP_PORT=3000
-APP_HOST=localhost
-
-# Database (example)
-DATABASE_URL=postgresql://localhost:5432/mydb
-
-# API Keys (example)
-API_KEY=your-api-key-here
-```
-
-**Important**: Never commit `.env` to git! It's in `.gitignore`.
 
 ### .env.example (In git)
 
@@ -578,31 +551,9 @@ NODE_ENV=development
 # Application
 APP_PORT=3000
 APP_HOST=localhost
-
-# Database (example)
-DATABASE_URL=
-
-# API Keys (example)
-API_KEY=
 ```
 
-**Purpose**: Shows what environment variables are needed without exposing secrets.
-
-### Loading Environment Variables
-
-```typescript
-// src/app/config/env.ts
-import dotenv from "dotenv"
-
-// Load environment variables
-dotenv.config()
-
-export const config = {
-  nodeEnv: process.env.NODE_ENV || "development",
-  port: parseInt(process.env.APP_PORT || "3000", 10),
-  host: process.env.APP_HOST || "localhost",
-}
-```
+**Important**: Never commit `.env` to git! It's in `.gitignore`. The `.env.example` shows what environment variables are needed without exposing secrets.
 
 ## 🔗 Related Guides
 
