@@ -436,7 +436,6 @@ Runs on every push and PR:
 For full CI/CD functionality, add these secrets in GitHub:
 
 - `CODECOV_TOKEN`: For coverage uploads (optional but recommended)
-- `NPM_TOKEN`: For npm publishing (optional, only if publishing to npm)
 
 ## 🏷️ Releases
 
