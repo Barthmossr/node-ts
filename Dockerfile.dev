@@ -1,0 +1,16 @@
+# syntax=docker/dockerfile:1
+
+FROM node:24.11.1-alpine
+ENV NODE_ENV=development
+WORKDIR /app
+
+RUN apk update && apk upgrade --no-cache
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev:watch"]
