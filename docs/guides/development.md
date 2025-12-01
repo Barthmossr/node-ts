@@ -115,9 +115,9 @@ If all checks pass, you're ready to develop! 🎉
 ### Day-to-Day Development
 
 ```bash
-# 1. Make sure you're on the latest develop branch
-git checkout develop
-git pull origin develop
+# 1. Make sure you're on the latest main branch
+git checkout main
+git pull origin main
 
 # 2. Create a feature branch
 git checkout -b feat/your-feature-name
@@ -139,7 +139,7 @@ git commit -m "feat: add new feature"
 # 7. Push your branch
 git push origin feat/your-feature-name
 
-# 8. Open a Pull Request to develop branch on GitHub
+# 8. Open a Pull Request to main branch on GitHub
 ```
 
 ### Git Hooks (Husky)
@@ -352,8 +352,7 @@ npm start
 
 ### Branching Strategy
 
-- **main**: Production-ready code
-- **develop**: Integration branch
+- **main**: Production-ready code (releases happen from this branch)
 - **feat/\***: New features
 - **fix/\***: Bug fixes
 - **chore/\***: Maintenance tasks
@@ -394,12 +393,12 @@ chore: update dependencies
 
 ### Pull Request Process
 
-1. Create feature branch from `develop`
+1. Create feature branch from `main`
 2. Make changes with conventional commits
 3. Ensure all checks pass (`npm run validate`)
-4. Create PR to `develop`
+4. Create PR to `main`
 5. Request review
-6. Merge after approval
+6. Merge after approval → Automatic Release!
 
 ## 🚢 CI/CD
 
@@ -603,7 +602,7 @@ npm run test:coverage
 
 - ✅ Commit often with clear messages
 - ✅ Keep commits focused and atomic
-- ✅ Branch from develop, not main
+- ✅ Branch from main for feature development
 - ✅ Pull before pushing
 - ✅ Use conventional commit format
 
