@@ -226,19 +226,39 @@ git commit -m "Added authentication"
 
 ### Test Organization
 
-Tests mirror the `src/` structure in the `tests/` directory:
+Tests are organized in the `tests/` directory with separation by test type:
 
 ```
 tests/
-├── setup.ts          # Global test setup
-└── app/
-    └── main.test.ts  # Tests for src/app/main.ts
+├── setup.ts              # Global test setup
+├── unit/                 # Unit tests (isolated, fast)
+│   └── app/
+│       └── main.test.ts  # Tests for src/app/main.ts
+├── integration/          # Integration tests (multiple components)
+│   └── ...
+└── e2e/                  # End-to-end tests (full system)
+    └── ...
 ```
+
+**Test Types**:
+
+| Type            | Purpose                             | Location             |
+| --------------- | ----------------------------------- | -------------------- |
+| **Unit**        | Test isolated functions and classes | `tests/unit/`        |
+| **Integration** | Test multiple components together   | `tests/integration/` |
+| **E2E**         | Test full application flows         | `tests/e2e/`         |
+
+This separation ensures:
+
+- Clear distinction between test scopes
+- Ability to run specific test types independently
+- Better organization as the codebase grows
+- Easier CI/CD pipeline configuration per test type
 
 ### Writing Tests
 
 ```typescript
-// tests/app/main.test.ts
+// tests/unit/app/main.test.ts
 import { main } from '@/app/main'
 
 describe('main', () => {
