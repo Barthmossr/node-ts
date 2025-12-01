@@ -12,6 +12,7 @@ Complete guide for setting up your development environment and working with this
 - [Building for Production](#building-for-production)
 - [Git Workflow](#git-workflow)
 - [CI/CD](#cicd)
+- [Releases](#releases)
 - [Troubleshooting](#troubleshooting)
 - [Best Practices](#best-practices)
 
@@ -435,6 +436,77 @@ Runs on every push and PR:
 For full CI/CD functionality, add these secrets in GitHub:
 
 - `CODECOV_TOKEN`: For coverage uploads (optional but recommended)
+- `NPM_TOKEN`: For npm publishing (optional, only if publishing to npm)
+
+## 🏷️ Releases
+
+### Semantic Versioning
+
+This project uses [Semantic Release](https://semantic-release.gitbook.io/) for automated versioning and releases. Versions follow [SemVer](https://semver.org/):
+
+- **MAJOR** (x.0.0): Breaking changes or major dependency updates
+- **MINOR** (0.x.0): New features, example code, documentation additions
+- **PATCH** (0.0.x): Bug fixes, dependency patches, minor updates
+
+### How It Works
+
+When code is merged to `main`, semantic-release automatically:
+
+1. Analyzes commit messages since last release
+2. Determines the next version based on commit types
+3. Generates/updates `CHANGELOG.md`
+4. Updates `package.json` version
+5. Creates a Git tag
+6. Creates a GitHub release with release notes
+
+### Commit Types and Version Bumps
+
+| Commit Type        | Version Bump | Example                           |
+| ------------------ | ------------ | --------------------------------- |
+| `feat:`            | **Minor**    | `feat: add user authentication`   |
+| `fix:`             | Patch        | `fix: resolve login timeout`      |
+| `perf:`            | Patch        | `perf: optimize database queries` |
+| `docs:`            | Patch        | `docs: update API documentation`  |
+| `refactor:`        | Patch        | `refactor: simplify auth logic`   |
+| `test:`            | Patch        | `test: add unit tests for auth`   |
+| `chore(deps):`     | Patch        | `chore(deps): update typescript`  |
+| `chore(deps-dev):` | Patch        | `chore(deps-dev): update jest`    |
+| `BREAKING CHANGE:` | **Major**    | Footer or `!` after type          |
+
+### Breaking Changes
+
+To trigger a major version bump, use one of these patterns:
+
+```bash
+# Option 1: Add ! after the type
+feat!: remove deprecated API endpoints
+
+# Option 2: Add BREAKING CHANGE in the footer
+feat: redesign authentication system
+
+BREAKING CHANGE: The auth API has been completely redesigned.
+Users need to update their integration.
+```
+
+### Release Workflow
+
+```
+1. Develop on feature branch
+   ↓
+2. Create PR to develop
+   ↓
+3. Merge to develop (CI runs)
+   ↓
+4. Create PR from develop to main
+   ↓
+5. Merge to main → Automatic Release!
+   ↓
+6. New version tagged, changelog updated, GitHub release created
+```
+
+### Checking the Changelog
+
+After releases, check `CHANGELOG.md` for the full history of changes organized by version and category.
 
 ## 🐛 Troubleshooting
 
