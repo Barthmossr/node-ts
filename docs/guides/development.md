@@ -469,6 +469,9 @@ When code is merged to `main`, semantic-release automatically:
 | `docs:`            | Patch        | `docs: update API documentation`  |
 | `refactor:`        | Patch        | `refactor: simplify auth logic`   |
 | `test:`            | Patch        | `test: add unit tests for auth`   |
+| `style:`           | Patch        | `style: fix code formatting`      |
+| `build:`           | Patch        | `build: update webpack config`    |
+| `ci:`              | Patch        | `ci: update GitHub Actions`       |
 | `chore(deps):`     | Patch        | `chore(deps): update typescript`  |
 | `chore(deps-dev):` | Patch        | `chore(deps-dev): update jest`    |
 | `BREAKING CHANGE:` | **Major**    | Footer or `!` after type          |
@@ -493,15 +496,11 @@ Users need to update their integration.
 ```
 1. Develop on feature branch
    ↓
-2. Create PR to develop
+2. Create PR to main
    ↓
-3. Merge to develop (CI runs)
+3. Merge to main → Automatic Release!
    ↓
-4. Create PR from develop to main
-   ↓
-5. Merge to main → Automatic Release!
-   ↓
-6. New version tagged, changelog updated, GitHub release created
+4. New version tagged, changelog updated, GitHub release created
 ```
 
 ### Checking the Changelog
