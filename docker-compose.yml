@@ -1,0 +1,38 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: node-ts-dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+    stdin_open: true
+    tty: true
+
+  prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-ts-prod
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: node-ts-test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=test
+    command: npm run test:coverage
