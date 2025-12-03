@@ -15,7 +15,8 @@ RUN npm run typecheck && npm run build
 
 FROM base AS prod-deps
 COPY package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force; \
+    mkdir -p node_modules
 
 FROM base AS production
 ENV NODE_ENV=production
@@ -23,7 +24,7 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 appuser
 
-COPY --from=prod-deps --chown=appuser:nodejs /app/node_modules ./node_modules
+COPY --from=prod-deps --chown=appuser:nodejs /app/node_modules* ./node_modules/
 COPY --from=builder --chown=appuser:nodejs /app/dist ./dist
 COPY --from=builder --chown=appuser:nodejs /app/package.json ./package.json
 
