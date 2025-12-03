@@ -44,11 +44,17 @@ Understanding the tools we use:
    - Configuration explanations
    - Future considerations (Bun, Biome)
 
+5. **[Docker Guide](guides/docker.md)** 🐳
+   - Development and production containers
+   - Docker Compose setup
+   - Dev Containers for VS Code
+   - Multi-stage build optimization
+
 ### Contributing
 
 If you want to contribute:
 
-5. **[Contributing Guidelines](./CONTRIBUTING.md)** 🤝
+6. **[Contributing Guidelines](./CONTRIBUTING.md)** 🤝
    - Branch strategy and workflow
    - Commit message standards
    - Pull request process
@@ -84,6 +90,7 @@ If you want to contribute:
 | **Setup and workflow**      | [Development Guide](guides/development.md)     |
 | **Configuration files**     | [Configuration Guide](guides/configuration.md) |
 | **Tool choices**            | [Libraries](guides/libraries.md)               |
+| **Docker**                  | [Docker Guide](guides/docker.md)               |
 | **Branch strategy**         | [Contributing Guidelines](CONTRIBUTING.md)     |
 | **Commit standards**        | [Contributing Guidelines](CONTRIBUTING.md)     |
 | **Testing strategy**        | [Development Guide](guides/development.md)     |
