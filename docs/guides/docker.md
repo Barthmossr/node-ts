@@ -343,3 +343,4 @@ docker compose exec dev sh
 - [Development Guide](development.md) - Development workflow
 - [Configuration Guide](configuration.md) - Configuration files
 - [Project Overview](project-overview.md) - Project structure
+
