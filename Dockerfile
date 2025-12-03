@@ -17,9 +17,8 @@ FROM base AS prod-deps
 COPY package*.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
-FROM node:24.11.1-alpine AS production
+FROM base AS production
 ENV NODE_ENV=production
-WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 appuser
