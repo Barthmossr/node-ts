@@ -101,10 +101,10 @@ Your local `src/` directory is mounted into the container. Changes are immediate
 
 The production build is optimized for:
 
-- Minimal image size (~150MB)
+- Minimal image size (~232MB)
 - Security (non-root user)
 - Fast startup
-- Health checks
+- Layered caching
 
 ### Building for Production
 
@@ -124,18 +124,8 @@ docker compose up prod
 | **Multi-stage**   | Only production files in image    |
 | **Alpine Linux**  | Minimal base image                |
 | **Non-root user** | Runs as `appuser` (UID 1001)      |
-| **Health check**  | Built-in health endpoint          |
 | **No dev deps**   | Only production dependencies      |
 | **Optimized**     | npm cache cleaned, minimal layers |
-
-### Health Check
-
-The production container includes a health check that pings `/health` every 30 seconds:
-
-```bash
-# Check container health
-docker inspect --format='{{.State.Health.Status}}' node-ts-prod
-```
 
 ## 📜 Docker Commands
 
@@ -284,7 +274,7 @@ This project supports VS Code Dev Containers for a consistent development enviro
 | Image          | Approximate Size | Use Case          |
 | -------------- | ---------------- | ----------------- |
 | Dockerfile.dev | ~500MB           | Local development |
-| Dockerfile     | ~150MB           | Deployment        |
+| Dockerfile     | ~232MB           | Deployment        |
 
 ## 🐛 Troubleshooting
 
