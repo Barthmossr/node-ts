@@ -4,8 +4,6 @@ FROM node:24.11.1-alpine
 ENV NODE_ENV=development
 WORKDIR /app
 
-RUN apk update && apk upgrade --no-cache
-
 COPY package*.json ./
 RUN npm ci
 

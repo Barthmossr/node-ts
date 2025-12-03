@@ -43,8 +43,6 @@ docs/
 commitlint.config.js
 eslint.config.ts
 jest.config.ts
-tsconfig.json
-tsconfig.build.json
 
 # CI/CD
 .github/

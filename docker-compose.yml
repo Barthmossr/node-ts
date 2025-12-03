@@ -11,8 +11,6 @@ services:
       - '3000:3000'
     environment:
       - NODE_ENV=development
-    stdin_open: true
-    tty: true
 
   prod:
     build:
