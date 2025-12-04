@@ -13,6 +13,7 @@ const config = defineConfig({
   dts: false,
   splitting: false,
   skipNodeModulesBundle: true,
+  tsconfig: './tsconfig.json',
 })
 
 export { config }
