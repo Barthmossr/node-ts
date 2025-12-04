@@ -33,7 +33,13 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker:dev": "docker compose up dev",
+    "docker:dev:build": "docker compose build dev && docker compose up dev",
+    "docker:prod": "docker compose up prod --build",
+    "docker:test": "docker compose run --rm test",
+    "docker:down": "docker compose down",
+    "docker:clean": "docker compose down -v --rmi local"
   },
   "bugs": {
     "url": "https://github.com/Barthmossr/node-ts/issues"
