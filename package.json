@@ -18,7 +18,7 @@
   ],
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "dev": "tsx src/app/main.ts",
     "dev:watch": "tsx watch src/app/main.ts",
     "start": "node dist/app/main.js",
@@ -67,6 +67,7 @@
     "rimraf": "^6.1.2",
     "semantic-release": "^25.0.2",
     "ts-jest": "^29.4.5",
+    "tsc-alias": "^1.8.16",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.0"
