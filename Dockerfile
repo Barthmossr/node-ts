@@ -31,4 +31,4 @@ COPY --from=builder --chown=appuser:nodejs /app/package.json ./package.json
 USER appuser
 EXPOSE 3000
 
-CMD ["node", "dist/app/main.js"]
+CMD ["node", "dist/main.js"]
