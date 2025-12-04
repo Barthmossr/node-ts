@@ -12,6 +12,7 @@ const config = defineConfig({
   sourcemap: false,
   dts: false,
   splitting: false,
+  // NOTE: External dependencies are NOT bundled. Production deployments require `npm ci --omit=dev`
   skipNodeModulesBundle: true,
   tsconfig: './tsconfig.json',
 })
