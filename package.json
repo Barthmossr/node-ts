@@ -1,0 +1,78 @@
+{
+  "name": "node-ts",
+  "version": "1.0.0",
+  "description": "A production-ready Node.js TypeScript template",
+  "main": "dist/main.js",
+  "author": "Barthmossr",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Barthmossr/node-ts.git"
+  },
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "template",
+    "boilerplate"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/app/main.ts",
+    "dev:watch": "tsx watch src/app/main.ts",
+    "start": "node dist/main.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "rimraf dist coverage",
+    "validate": "npm run lint && npm run format:check && npm run typecheck && npm run build",
+    "check": "ncu -ui",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "prepare": "husky",
+    "docker:dev": "docker compose up dev",
+    "docker:dev:build": "docker compose build dev && docker compose up dev",
+    "docker:prod": "docker compose up prod --build",
+    "docker:test": "docker compose run --rm test",
+    "docker:down": "docker compose down",
+    "docker:clean": "docker compose down -v --rmi local"
+  },
+  "bugs": {
+    "url": "https://github.com/Barthmossr/node-ts/issues"
+  },
+  "homepage": "https://github.com/Barthmossr/node-ts#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@eslint/js": "^9.39.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "jest": "^30.2.0",
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.2.7",
+    "npm-check-updates": "^19.1.2",
+    "prettier": "3.7.3",
+    "rimraf": "^6.1.2",
+    "semantic-release": "^25.0.2",
+    "ts-jest": "^29.4.5",
+    "tsup": "^8.5.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.0"
+  },
+  "engines": {
+    "node": "24.11.1"
+  }
+}
