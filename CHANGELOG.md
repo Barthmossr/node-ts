@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Barthmossr/node-ts/compare/v1.0.1...v1.0.2) (2025-12-06)
+
+### Maintenance
+
+* **ci:** bump actions/checkout from 4 to 6 ([2cc09ad](https://github.com/Barthmossr/node-ts/commit/2cc09ad777c7effea8f8f7f4f4d684efba8ba1ba))
+* **deps:** bump the development group across 1 directory with 6 updates ([37d2238](https://github.com/Barthmossr/node-ts/commit/37d2238aa583d0b28358819cb5f895d31302a22b))
+
 ## [1.0.1](https://github.com/Barthmossr/node-ts/compare/v1.0.0...v1.0.1) (2025-12-06)
 
 ### Documentation
