@@ -4,5 +4,4 @@ node_modules
 dist
 
 # Auto-generated files
-CHANGELOG.md
 package-lock.json
