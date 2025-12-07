@@ -1,6 +1,6 @@
 {
   "name": "Node.js TypeScript Dev Container",
-  "dockerComposeFile": "../docker-compose.yml",
+  "dockerComposeFile": "../docker/docker-compose.yml",
   "service": "dev",
   "workspaceFolder": "/app",
   "customizations": {

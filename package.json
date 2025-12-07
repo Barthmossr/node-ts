@@ -34,12 +34,12 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "prepare": "husky",
-    "docker:dev": "docker compose up dev",
-    "docker:dev:build": "docker compose build dev && docker compose up dev",
-    "docker:prod": "docker compose up prod --build",
-    "docker:test": "docker compose run --rm test",
-    "docker:down": "docker compose down",
-    "docker:clean": "docker compose down -v --rmi local"
+    "docker:dev": "docker compose -f docker/docker-compose.yml up dev",
+    "docker:dev:build": "docker compose -f docker/docker-compose.yml build dev && docker compose -f docker/docker-compose.yml up dev",
+    "docker:prod": "docker compose -f docker/docker-compose.yml up prod --build",
+    "docker:test": "docker compose -f docker/docker-compose.yml run --rm test",
+    "docker:down": "docker compose -f docker/docker-compose.yml down",
+    "docker:clean": "docker compose -f docker/docker-compose.yml down -v --rmi local"
   },
   "bugs": {
     "url": "https://github.com/Barthmossr/node-ts/issues"
