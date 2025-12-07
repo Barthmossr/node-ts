@@ -49,6 +49,5 @@ tsup.config.ts
 .github/
 
 # Docker files (avoid recursive copy)
-Dockerfile
-docker-compose*.yml
+docker/
 .dockerignore

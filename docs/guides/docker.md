@@ -80,7 +80,7 @@ npm run docker:dev
 
 ```bash
 # Open a shell in the running container
-docker compose exec dev sh
+docker compose -f docker/docker-compose.yml exec dev sh
 
 # Run commands inside
 npm run lint
@@ -176,7 +176,7 @@ docker logs node-ts-dev -f
 docker exec -it node-ts-dev sh
 
 # Build production image manually
-docker build --target production -t node-ts:prod .
+docker build -f docker/Dockerfile -t node-ts:prod .
 
 # Run production image
 docker run -p 3000:3000 node-ts:prod
@@ -213,10 +213,12 @@ This project supports VS Code Dev Containers for a consistent development enviro
 
 ### Docker Files
 
-| File             | Purpose                                 |
-| ---------------- | --------------------------------------- |
-| `Dockerfile`     | Production multi-stage build            |
-| `Dockerfile.dev` | Development environment with hot reload |
+| File                        | Purpose                                 |
+| --------------------------- | --------------------------------------- |
+| `docker/Dockerfile`         | Production multi-stage build            |
+| `docker/Dockerfile.dev`     | Development environment with hot reload |
+| `docker/docker-compose.yml` | Service orchestration                   |
+| `.dockerignore`             | Files excluded from Docker context      |
 
 ### Dockerfile (Production) Stages
 
