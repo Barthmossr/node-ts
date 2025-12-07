@@ -1,3 +1,13 @@
+## [1.0.3](https://github.com/Barthmossr/node-ts/compare/v1.0.2...v1.0.3) (2025-12-07)
+
+### Refactoring
+
+* move docker files to docker folder ([cda5207](https://github.com/Barthmossr/node-ts/commit/cda52078129f7dad168d3cbec3f9e5eaf26727bf))
+
+### Maintenance
+
+* **ci:** bump codecov/codecov-action from 4 to 5 ([1d4f768](https://github.com/Barthmossr/node-ts/commit/1d4f76880735e5e73bbcb8204e349d40cd1d0e58))
+
 ## [1.0.2](https://github.com/Barthmossr/node-ts/compare/v1.0.1...v1.0.2) (2025-12-06)
 
 ### Maintenance
