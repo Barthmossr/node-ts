@@ -31,7 +31,7 @@
 - **ci:** bump actions/upload-artifact from 4 to 5 ([437fe2e](https://github.com/Barthmossr/node-ts/commit/437fe2e4c019e62e935b867950b53d7918092dc2))
 - ignore auto generated files from prettier ([9c08f60](https://github.com/Barthmossr/node-ts/commit/9c08f6020916f9c2a9d54c48998e3dd410633cc2))
 - remove change log from prettier ignore ([d29fb30](https://github.com/Barthmossr/node-ts/commit/d29fb30af120ee2e0ed716d2566a346b5e7f34a5))
-- update fomart check script ([70f3717](https://github.com/Barthmossr/node-ts/commit/70f37179f047d292849bde2b343fbc1c423f0df4))
+- update format check script ([70f3717](https://github.com/Barthmossr/node-ts/commit/70f37179f047d292849bde2b343fbc1c423f0df4))
 
 ## 1.0.0 (2025-12-04)
 
