@@ -18,7 +18,7 @@
   ],
   "type": "module",
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "dev": "tsx src/app/main.ts",
     "dev:watch": "tsx watch src/app/main.ts",
     "start": "node dist/main.js",
@@ -67,7 +67,7 @@
     "rimraf": "^6.1.2",
     "semantic-release": "^25.0.2",
     "ts-jest": "^29.4.6",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.17.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.49.0"
