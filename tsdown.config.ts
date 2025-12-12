@@ -1,9 +1,8 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from 'tsdown'
 
 const config = defineConfig({
   entry: ['src/app/main.ts'],
-  format: ['esm'],
-  target: 'es2022',
+  format: 'es',
   platform: 'node',
   outDir: 'dist',
   clean: true,
@@ -11,12 +10,8 @@ const config = defineConfig({
   treeshake: true,
   sourcemap: false,
   dts: false,
-  splitting: false,
-  // NOTE: External dependencies are NOT bundled. Production deployments require `npm ci --omit=dev`
   skipNodeModulesBundle: true,
   tsconfig: './tsconfig.json',
 })
-
-export { config }
 
 export default config

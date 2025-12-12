@@ -16,7 +16,7 @@
 [![Node.js Version](https://img.shields.io/badge/node-v24.11.1-brightgreen.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-v5.9.3-blue.svg)](https://www.typescriptlang.org/)
 [![ESLint](https://img.shields.io/badge/ESLint-v9.39.1-4B32C3.svg)](https://eslint.org/)
-[![Prettier](https://img.shields.io/badge/Prettier-v3.7.3-F7B93E.svg)](https://prettier.io/)
+[![Prettier](https://img.shields.io/badge/Prettier-v3.7.4-F7B93E.svg)](https://prettier.io/)
 [![Jest](https://img.shields.io/badge/Jest-v30.2.0-C21325.svg)](https://jestjs.io/)
 
 <!-- Standards -->
@@ -100,8 +100,8 @@ npm run build
 | Jest        | ^30.2.0  | Testing                |
 | Husky       | ^9.1.7   | Git hooks              |
 | lint-staged | ^16.2.7  | Pre-commit linting     |
-| commitlint  | ^20.1.0  | Commit message linting |
-| tsx         | ^4.20.6  | Direct TS execution    |
+| commitlint  | ^20.2.0  | Commit message linting |
+| tsx         | ^4.21.0  | Direct TS execution    |
 
 ## 📁 Project Structure
 
