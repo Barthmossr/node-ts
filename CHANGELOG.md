@@ -1,3 +1,12 @@
+## [1.0.5](https://github.com/Barthmossr/node-ts/compare/v1.0.4...v1.0.5) (2025-12-16)
+
+### Maintenance
+
+* adjust package lock ([45f1265](https://github.com/Barthmossr/node-ts/commit/45f12653003ee1612975847d4e55d55cbbba6b01))
+* **ci:** bump actions/upload-artifact from 5 to 6 ([9c5e2bf](https://github.com/Barthmossr/node-ts/commit/9c5e2bfe644578a86be409caaaabbe14d85b68c6))
+* **deps:** bump tsdown from 0.17.3 to 0.17.4 in the development group ([6bee534](https://github.com/Barthmossr/node-ts/commit/6bee53471a91b3484d80418ab82335ceee3834a9))
+* update libs and node ([543d8d8](https://github.com/Barthmossr/node-ts/commit/543d8d845ed77b5f22a8b79b6b392dbf3c7577e5))
+
 ## [1.0.4](https://github.com/Barthmossr/node-ts/compare/v1.0.3...v1.0.4) (2025-12-12)
 
 ### Documentation
