@@ -12,11 +12,11 @@ echo -e "${BLUE}[INFO]${NC} Setting up Node.js TypeScript project..."
 echo ""
 
 if ! command -v node &> /dev/null; then
-    echo -e "${RED}[ERROR]${NC} Node.js is not installed. Please install Node.js v24.11.1"
+    echo -e "${RED}[ERROR]${NC} Node.js is not installed. Please install Node.js v24.12.0"
     exit 1
 fi
 
-REQUIRED_NODE_VERSION="24.11.1"
+REQUIRED_NODE_VERSION="24.12.0"
 CURRENT_NODE_VERSION=$(node -v | sed 's/v//')
 
 if [ "$CURRENT_NODE_VERSION" != "$REQUIRED_NODE_VERSION" ]; then
