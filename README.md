@@ -6,6 +6,7 @@
 
 [![CI - Validate](https://github.com/Barthmossr/node-ts/actions/workflows/validate.yml/badge.svg)](https://github.com/Barthmossr/node-ts/actions/workflows/validate.yml)
 [![CI - Test](https://github.com/Barthmossr/node-ts/actions/workflows/test.yml/badge.svg)](https://github.com/Barthmossr/node-ts/actions/workflows/test.yml)
+[![CI - Security](https://github.com/Barthmossr/node-ts/actions/workflows/security.yml/badge.svg)](https://github.com/Barthmossr/node-ts/actions/workflows/security.yml)
 
 <!-- Code Quality -->
 
@@ -13,9 +14,9 @@
 
 <!-- Technology -->
 
-[![Node.js Version](https://img.shields.io/badge/node-v24.11.1-brightgreen.svg)](https://nodejs.org/)
+[![Node.js Version](https://img.shields.io/badge/node-v24.12.0-brightgreen.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-v5.9.3-blue.svg)](https://www.typescriptlang.org/)
-[![ESLint](https://img.shields.io/badge/ESLint-v9.39.1-4B32C3.svg)](https://eslint.org/)
+[![ESLint](https://img.shields.io/badge/ESLint-v9.39.2-4B32C3.svg)](https://eslint.org/)
 [![Prettier](https://img.shields.io/badge/Prettier-v3.7.4-F7B93E.svg)](https://prettier.io/)
 [![Jest](https://img.shields.io/badge/Jest-v30.2.0-C21325.svg)](https://jestjs.io/)
 
@@ -42,7 +43,9 @@
 - 🏗️ **Strict folder structure** - No loose files, organized subfolders for everything
 - 🛠️ **Complete development tooling** - ESLint (flat config), Prettier, Husky, commitlint
 - 🧪 **Testing infrastructure** - Jest with 100% coverage threshold
-- 🚀 **CI/CD pipelines** - GitHub Actions with validation and test workflows
+- 🚀 **CI/CD pipelines** - GitHub Actions with validation, test, and security workflows
+- 🐳 **Docker support** - Development and production containerization
+- 🤖 **AI Agent guidelines** - Copilot instructions for consistent code generation
 - 📝 **Conventional commits** - Enforced for all commits
 - 📚 **Comprehensive documentation** - Detailed guides for all aspects
 
@@ -50,11 +53,14 @@
 
 This template is intentionally **framework-agnostic** and **database-agnostic**. The focus is on:
 
-1. **Development Environment** - Setting up a robust, consistent development experience
-2. **Code Quality** - Enforcing best practices through linting, formatting, and testing
-3. **Automation** - CI/CD pipelines for validation and testing
-4. **Structure** - A scalable, organized folder structure
-5. **Documentation** - Clear guidance for contributors and users
+1. **Security** - Input validation, secure patterns, and regular audits (Critical Priority)
+2. **Performance** - Optimized for any device, efficient resource usage (High Priority)
+3. **Accessibility** - WCAG 2.1 AA compliant foundations (High Priority)
+4. **Development Environment** - Robust, consistent development experience
+5. **Code Quality** - Enforcing best practices through linting, formatting, and testing
+6. **Automation** - CI/CD pipelines for validation, testing, and security
+7. **Structure** - Scalable, organized folder structure
+8. **Documentation** - Clear guidance for contributors and users
 
 ### Future Plans
 
@@ -93,15 +99,16 @@ npm run build
 
 | Tool        | Version  | Purpose                |
 | ----------- | -------- | ---------------------- |
-| Node.js     | v24.11.1 | Runtime                |
+| Node.js     | v24.12.0 | Runtime                |
 | TypeScript  | ^5.9.3   | Type system            |
-| ESLint      | ^9.39.1  | Linting (flat config)  |
-| Prettier    | ^3.7.3   | Formatting             |
+| ESLint      | ^9.39.2  | Linting (flat config)  |
+| Prettier    | ^3.7.4   | Formatting             |
 | Jest        | ^30.2.0  | Testing                |
 | Husky       | ^9.1.7   | Git hooks              |
 | lint-staged | ^16.2.7  | Pre-commit linting     |
 | commitlint  | ^20.2.0  | Commit message linting |
 | tsx         | ^4.21.0  | Direct TS execution    |
+| tsdown      | ^0.18.2  | Build bundler          |
 
 ## 📁 Project Structure
 
@@ -112,16 +119,23 @@ node-ts/
 │       └── main.ts       # Entry point
 ├── tests/
 │   ├── setup.ts          # Global test setup
-│   └── app/
-│       └── main.test.ts  # Tests mirror src/ structure
+│   └── unit/
+│       └── app/
+│           └── main.test.ts  # Tests mirror src/ structure
 ├── docs/
 │   ├── CONTRIBUTING.md
 │   ├── README.md
 │   └── guides/           # Documentation files
+├── docker/
+│   ├── docker-compose.yml
+│   ├── Dockerfile
+│   └── Dockerfile.dev    # Docker configurations
 ├── scripts/
 │   └── setup.sh          # Setup script
 ├── .github/
-│   └── workflows/        # CI/CD workflows
+│   ├── workflows/        # CI/CD workflows
+│   └── copilot-instructions.md  # AI Agent guidelines
+├── .devcontainer/        # VS Code Dev Container
 ├── .vscode/              # Editor configuration
 └── dist/                 # Build output (git ignored)
 ```
@@ -130,23 +144,29 @@ node-ts/
 
 ## 📜 Available Scripts
 
-| Script                  | Description                   |
-| ----------------------- | ----------------------------- |
-| `npm run dev`           | Run TypeScript directly       |
-| `npm run dev:watch`     | Run with hot reload           |
-| `npm run build`         | Compile to JavaScript         |
-| `npm start`             | Run built application         |
-| `npm run typecheck`     | Check TypeScript types        |
-| `npm run lint`          | Check code with ESLint        |
-| `npm run lint:fix`      | Auto-fix ESLint issues        |
-| `npm run format`        | Format with Prettier          |
-| `npm run format:check`  | Check formatting              |
-| `npm run validate`      | Run all quality checks        |
-| `npm test`              | Run tests                     |
-| `npm run test:watch`    | Tests in watch mode           |
-| `npm run test:coverage` | Generate coverage report      |
-| `npm run check`         | Interactive dependency update |
-| `npm run clean`         | Remove build artifacts        |
+| Script                     | Description                   |
+| -------------------------- | ----------------------------- |
+| `npm run dev`              | Run TypeScript directly       |
+| `npm run dev:watch`        | Run with hot reload           |
+| `npm run build`            | Compile to JavaScript         |
+| `npm start`                | Run built application         |
+| `npm run typecheck`        | Check TypeScript types        |
+| `npm run lint`             | Check code with ESLint        |
+| `npm run lint:fix`         | Auto-fix ESLint issues        |
+| `npm run format`           | Format with Prettier          |
+| `npm run format:check`     | Check formatting              |
+| `npm run validate`         | Run all quality checks        |
+| `npm test`                 | Run tests                     |
+| `npm run test:watch`       | Tests in watch mode           |
+| `npm run test:coverage`    | Generate coverage report      |
+| `npm run check`            | Interactive dependency update |
+| `npm run clean`            | Remove build artifacts        |
+| `npm run docker:dev`       | Run dev container             |
+| `npm run docker:dev:build` | Build and run dev container   |
+| `npm run docker:prod`      | Run production container      |
+| `npm run docker:test`      | Run tests in container        |
+| `npm run docker:down`      | Stop containers               |
+| `npm run docker:clean`     | Clean containers and volumes  |
 
 ## 🌿 Branch Strategy
 
@@ -169,6 +189,7 @@ For detailed documentation, please refer to the `docs/` directory:
 - [Library Decisions](docs/guides/libraries.md) - Why each tool was chosen
 - [Development Guide](docs/guides/development.md) - Setup and workflow instructions
 - [Configuration Guide](docs/guides/configuration.md) - Understanding config files
+- [Docker Guide](docs/guides/docker.md) - Docker setup and usage
 
 ## 🧪 Testing
 
