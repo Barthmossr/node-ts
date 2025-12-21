@@ -1,3 +1,13 @@
+## [1.0.7](https://github.com/Barthmossr/node-ts/compare/v1.0.6...v1.0.7) (2025-12-21)
+
+### Documentation
+
+* update readme ([85508e5](https://github.com/Barthmossr/node-ts/commit/85508e565a0318b6a0bc7a01205c3544e88f62d0))
+
+### Refactoring
+
+* adjust script setup node version ([9f5f41a](https://github.com/Barthmossr/node-ts/commit/9f5f41aa65d00d5e2bc353aa01728a996bea1163))
+
 ## [1.0.6](https://github.com/Barthmossr/node-ts/compare/v1.0.5...v1.0.6) (2025-12-21)
 
 ### Bug Fixes
