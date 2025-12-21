@@ -21,7 +21,7 @@
     "build": "tsdown",
     "dev": "tsx src/app/main.ts",
     "dev:watch": "tsx watch src/app/main.ts",
-    "start": "node dist/main.js",
+    "start": "node dist/main.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
