@@ -36,7 +36,7 @@ The heart of your Node.js project.
   },
   "keywords": ["nodejs", "typescript", "template", "boilerplate"],
   "engines": {
-    "node": "24.11.1"
+    "node": "24.12.0"
   }
 }
 ```
@@ -523,13 +523,13 @@ trim_trailing_whitespace = false
 ### .nvmrc
 
 ```
-24.11.1
+24.12.0
 ```
 
 ### .node-version
 
 ```
-24.11.1
+24.12.0
 ```
 
 **Usage with nvm**:

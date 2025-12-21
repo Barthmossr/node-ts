@@ -194,7 +194,7 @@ This project supports VS Code Dev Containers for a consistent development enviro
 
 ### What's Included
 
-- Node.js 24.11.1
+- Node.js 24.12.0
 - All VS Code extensions pre-installed
 - ESLint and Prettier configured
 - Git available inside container
@@ -228,7 +228,7 @@ This project supports VS Code Dev Containers for a consistent development enviro
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  ┌─────────┐                                                │
-│  │  base   │ ← Alpine + Node.js 24.11.1                     │
+│  │  base   │ ← Alpine + Node.js 24.12.0                     │
 │  └────┬────┘                                                │
 │       │                                                     │
 │  ┌────┴────┐                                                │
@@ -260,7 +260,7 @@ This project supports VS Code Dev Containers for a consistent development enviro
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  ┌─────────────────────────────────────────────────────┐    │
-│  │  node:24.11.1-alpine                                │    │
+│  │  node:24.12.0-alpine                                │    │
 │  │  + All dependencies (npm ci)                        │    │
 │  │  + Source code                                      │    │
 │  │  + Hot reload (tsx watch)                           │    │

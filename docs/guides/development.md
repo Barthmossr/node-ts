@@ -22,7 +22,7 @@ Before you begin, ensure you have the following installed:
 
 ### Required
 
-- **Node.js v24.11.1**
+- **Node.js v24.12.0**
   - Check version: `node --version`
   - Download: [nodejs.org](https://nodejs.org/)
   - We recommend using [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager)
@@ -80,7 +80,7 @@ nvm install
 nvm use
 ```
 
-Without nvm, ensure you have Node.js v24.11.1 installed.
+Without nvm, ensure you have Node.js v24.12.0 installed.
 
 ### 3. Run Setup
 
@@ -518,7 +518,7 @@ After releases, check `CHANGELOG.md` for the full history of changes organized b
 ```bash
 # Install Node.js from nodejs.org
 # Or use nvm
-nvm install 24.11.1
+nvm install 24.12.0
 ```
 
 #### Issue: Node.js Version Mismatch
