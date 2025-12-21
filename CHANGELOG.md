@@ -1,3 +1,31 @@
+## [1.0.5](https://github.com/Barthmossr/node-ts/compare/v1.0.4...v1.0.5) (2025-12-16)
+
+### Maintenance
+
+* adjust package lock ([45f1265](https://github.com/Barthmossr/node-ts/commit/45f12653003ee1612975847d4e55d55cbbba6b01))
+* **ci:** bump actions/upload-artifact from 5 to 6 ([9c5e2bf](https://github.com/Barthmossr/node-ts/commit/9c5e2bfe644578a86be409caaaabbe14d85b68c6))
+* **deps:** bump tsdown from 0.17.3 to 0.17.4 in the development group ([6bee534](https://github.com/Barthmossr/node-ts/commit/6bee53471a91b3484d80418ab82335ceee3834a9))
+* update libs and node ([543d8d8](https://github.com/Barthmossr/node-ts/commit/543d8d845ed77b5f22a8b79b6b392dbf3c7577e5))
+
+## [1.0.4](https://github.com/Barthmossr/node-ts/compare/v1.0.3...v1.0.4) (2025-12-12)
+
+### Documentation
+
+* adjust readme badges versions ([c4adcd0](https://github.com/Barthmossr/node-ts/commit/c4adcd01ed04dab340fb9febe0c00b9427e1c57c))
+
+### Code Style
+
+* adjust change log ([26ab816](https://github.com/Barthmossr/node-ts/commit/26ab8160f216fc23a0108324a3a654b4f8cf2f8b))
+
+### Refactoring
+
+* change tsup to tsdown ([b159da5](https://github.com/Barthmossr/node-ts/commit/b159da5db5520088d526350e13c2d723dc227d49))
+
+### Maintenance
+
+* update libs ([f28c435](https://github.com/Barthmossr/node-ts/commit/f28c43573894aed4e0550b5a69e5df6035f00bf6))
+* update libs ([deb3dac](https://github.com/Barthmossr/node-ts/commit/deb3dac056487e657bda0c88190cafe2a0fec404))
+
 ## [1.0.3](https://github.com/Barthmossr/node-ts/compare/v1.0.2...v1.0.3) (2025-12-07)
 
 ### Refactoring
