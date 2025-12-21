@@ -1,3 +1,13 @@
+## [1.0.6](https://github.com/Barthmossr/node-ts/compare/v1.0.5...v1.0.6) (2025-12-21)
+
+### Bug Fixes
+
+* adjust start script to use mjs ([58961f0](https://github.com/Barthmossr/node-ts/commit/58961f0b4e75977cf01c48ec61bb03ec42317fbf))
+
+### Maintenance
+
+* update libs ([5031b47](https://github.com/Barthmossr/node-ts/commit/5031b4704b7bcd395c65fc0cd1dd33388accae68))
+
 ## [1.0.5](https://github.com/Barthmossr/node-ts/compare/v1.0.4...v1.0.5) (2025-12-16)
 
 ### Maintenance
