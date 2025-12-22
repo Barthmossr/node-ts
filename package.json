@@ -1,6 +1,6 @@
 {
   "name": "node-ts",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A production-ready Node.js TypeScript template",
   "main": "dist/main.js",
   "author": "Barthmossr",

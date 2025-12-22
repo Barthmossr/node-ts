@@ -1,3 +1,14 @@
+## [1.0.8](https://github.com/Barthmossr/node-ts/compare/v1.0.7...v1.0.8) (2025-12-22)
+
+### Documentation
+
+* update guides ([63e0783](https://github.com/Barthmossr/node-ts/commit/63e0783c370350943a5283c26a7eee70aad7ff62))
+
+### Maintenance
+
+* adjust all node version refs ([a26aecd](https://github.com/Barthmossr/node-ts/commit/a26aecd870eb102bd4f1041b62715b2f482fa3b6))
+* adjust vscode extensions ([94844bf](https://github.com/Barthmossr/node-ts/commit/94844bfccd83c4bd8b25de489e63d52f4f9a871e))
+
 ## [1.0.7](https://github.com/Barthmossr/node-ts/compare/v1.0.6...v1.0.7) (2025-12-21)
 
 ### Documentation
