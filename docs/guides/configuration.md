@@ -23,9 +23,9 @@ The heart of your Node.js project.
 ```json
 {
   "name": "node-ts",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "A production-ready Node.js TypeScript template",
-  "main": "dist/app/main.js",
+  "main": "dist/main.js",
   "author": "Barthmossr",
   "license": "MIT",
   "private": false,
@@ -60,10 +60,10 @@ The heart of your Node.js project.
 ```json
 {
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsdown",
     "dev": "tsx src/app/main.ts",
     "dev:watch": "tsx watch src/app/main.ts",
-    "start": "node dist/app/main.js",
+    "start": "node dist/main.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -82,7 +82,7 @@ The heart of your Node.js project.
 
 **Scripts Explained**:
 
-- **build**: Compile TypeScript to JavaScript using build config
+- **build**: Build TypeScript to JavaScript using tsdown (fast bundler)
 - **dev**: Run TypeScript directly with tsx
 - **dev:watch**: Development mode with hot reload
 - **start**: Run the built application
@@ -121,6 +121,7 @@ The heart of your Node.js project.
     "prettier": "^3.x.x",
     "rimraf": "^6.x.x",
     "ts-jest": "^29.x.x",
+    "tsdown": "^0.x.x",
     "tsx": "^4.x.x",
     "typescript": "^5.x.x",
     "typescript-eslint": "^8.x.x"
@@ -195,27 +196,52 @@ Main TypeScript configuration for editor support and type checking:
 - **noUncheckedIndexedAccess**: Safer array/object access
 - **verbatimModuleSyntax**: Enforce explicit import/export type annotations
 - **skipLibCheck**: Faster compilation
+- **noEmit**: True for tsconfig.json (no output, type-checking only)
 
-### tsconfig.build.json
+## 🚀 Build Configuration
 
-For production builds (excludes tests):
+### tsdown.config.ts
 
-```json
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "rootDir": "./src"
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "tests"]
-}
+We use **tsdown** as our build tool for fast, optimized bundling:
+
+```typescript
+import { defineConfig } from 'tsdown'
+
+const config = defineConfig({
+  entry: ['src/app/main.ts'],
+  format: 'es',
+  platform: 'node',
+  outDir: 'dist',
+  clean: true,
+  minify: true,
+  treeshake: true,
+  sourcemap: false,
+  dts: false,
+  skipNodeModulesBundle: true,
+  tsconfig: './tsconfig.json',
+})
+
+export default config
 ```
 
-**Why Separate Build Config**:
+**Why tsdown**:
 
-- Main `tsconfig.json` includes tests for editor support
-- Build config only compiles source files
-- Prevents test files from appearing in `dist/`
+- **Fast**: Powered by esbuild, extremely fast builds
+- **Optimized**: Minification and tree-shaking out of the box
+- **Simple**: Single config file, sensible defaults
+- **TypeScript-first**: Native TypeScript support
+
+**Settings Explained**:
+
+- **entry**: Entry point files to build
+- **format**: ES modules output
+- **platform**: Target Node.js environment
+- **outDir**: Output directory for built files
+- **clean**: Remove output dir before building
+- **minify**: Minify output for production
+- **treeshake**: Remove unused code
+- **skipNodeModulesBundle**: Don't bundle node_modules
+- **tsconfig**: Use main tsconfig for compilation
 
 ## 🎨 ESLint Configuration
 

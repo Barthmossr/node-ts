@@ -410,6 +410,53 @@ export default config
 
 ## 🛠️ Build & Development
 
+### tsdown ^0.18.2
+
+**What**: Fast TypeScript bundler powered by esbuild
+
+**Why**:
+
+- **Speed**: Extremely fast builds (powered by esbuild)
+- **Zero Config**: Works out of the box with sensible defaults
+- **Optimization**: Built-in minification and tree-shaking
+- **TypeScript-first**: Native TypeScript support
+- **Simple**: Clean, minimal configuration file
+
+**Configuration** (`tsdown.config.ts`):
+
+```typescript
+import { defineConfig } from 'tsdown'
+
+const config = defineConfig({
+  entry: ['src/app/main.ts'],
+  format: 'es',
+  platform: 'node',
+  outDir: 'dist',
+  clean: true,
+  minify: true,
+  treeshake: true,
+  skipNodeModulesBundle: true,
+})
+
+export default config
+```
+
+**Key Features**:
+
+- **ES Modules**: Native ESM output
+- **Minification**: Production-ready optimized builds
+- **Tree-shaking**: Remove unused code
+- **Clean builds**: Auto-cleanup before building
+
+**Usage**: `npm run build`
+
+**Alternatives Considered**:
+
+- **tsc (TypeScript Compiler)**: Slower, no bundling or optimization
+- **esbuild directly**: More configuration needed
+- **rollup**: More complex setup
+- **webpack**: Overly complex for simple projects
+
 ### tsx ^4.21.0
 
 **What**: TypeScript Execute - run TypeScript files directly

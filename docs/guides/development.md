@@ -188,15 +188,15 @@ git commit -m "Added authentication"
 | ----------- | --------------------------- | ----------------------- |
 | `dev`       | `tsx src/app/main.ts`       | Run TypeScript directly |
 | `dev:watch` | `tsx watch src/app/main.ts` | Run with hot reload     |
-| `start`     | `node dist/app/main.js`     | Run built application   |
+| `start`     | `node dist/main.mjs`        | Run built application   |
 
 ### Build Scripts
 
-| Script      | Command                      | Description            |
-| ----------- | ---------------------------- | ---------------------- |
-| `build`     | `tsc -p tsconfig.build.json` | Compile TypeScript     |
-| `clean`     | `rimraf dist coverage`       | Remove build artifacts |
-| `typecheck` | `tsc --noEmit`               | Check types only       |
+| Script      | Command                | Description                   |
+| ----------- | ---------------------- | ----------------------------- |
+| `build`     | `tsdown`               | Build TypeScript with tsdown  |
+| `clean`     | `rimraf dist coverage` | Remove build artifacts        |
+| `typecheck` | `tsc --noEmit`         | Check types without compiling |
 
 ### Quality Scripts
 
@@ -328,16 +328,15 @@ npm run build
 
 This will:
 
-1. Compile TypeScript to JavaScript using `tsconfig.build.json`
+1. Bundle TypeScript to optimized JavaScript using tsdown
 2. Output to `dist/` directory
-3. Generate source maps and declaration files
+3. Minify and tree-shake for optimal performance
 
 ### Build Output
 
 ```
 dist/
-└── app/
-    └── main.js
+└── main.mjs
 ```
 
 ### Test Production Build
