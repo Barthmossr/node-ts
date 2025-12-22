@@ -28,7 +28,7 @@ This project adheres to the [Contributor Covenant Code of Conduct](https://www.c
 
 ### Prerequisites
 
-- Node.js v24.11.1 (use `.nvmrc` or `.node-version` file)
+- Node.js v24.12.0 (use `.nvmrc` or `.node-version` file)
 - npm (our official package manager)
 - Git
 

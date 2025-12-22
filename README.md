@@ -148,7 +148,7 @@ node-ts/
 | -------------------------- | ----------------------------- |
 | `npm run dev`              | Run TypeScript directly       |
 | `npm run dev:watch`        | Run with hot reload           |
-| `npm run build`            | Compile to JavaScript         |
+| `npm run build`            | Build with tsdown             |
 | `npm start`                | Run built application         |
 | `npm run typecheck`        | Check TypeScript types        |
 | `npm run lint`             | Check code with ESLint        |

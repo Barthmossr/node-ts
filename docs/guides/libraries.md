@@ -14,7 +14,7 @@ This document explains why each library was chosen, what it does, and how it's c
 
 ## 🎯 Core Technologies
 
-### Node.js v24.11.1
+### Node.js v24.12.0
 
 **What**: JavaScript runtime built on Chrome's V8 engine
 
@@ -93,7 +93,7 @@ This document explains why each library was chosen, what it does, and how it's c
 
 ## 🎨 Code Quality & Formatting
 
-### ESLint ^9.39.1
+### ESLint ^9.39.2
 
 **What**: Pluggable linting utility for JavaScript and TypeScript
 
@@ -166,7 +166,7 @@ export default defineConfig([
 - **Standard**: Less customizable
 - **Biome**: Too new, smaller ecosystem
 
-### Prettier ^3.7.3
+### Prettier ^3.7.4
 
 **What**: Opinionated code formatter
 
@@ -291,7 +291,7 @@ trim_trailing_whitespace = false
 - **Manual checking**: Easy to forget
 - **Git hooks without lint-staged**: Reinventing the wheel
 
-### commitlint ^20.1.0
+### commitlint ^20.2.0
 
 **What**: Lint commit messages
 
@@ -381,7 +381,7 @@ export default config
 - **AVA**: Less popular, minimal advantages
 - **Node Test Runner**: Too basic
 
-### ts-jest ^29.4.5
+### ts-jest ^29.4.6
 
 **What**: TypeScript preprocessor for Jest
 
@@ -398,7 +398,7 @@ export default config
 - **babel-jest**: Less accurate type checking
 - **swc-jest**: Faster but less mature
 
-### @types/jest ^30.x.x
+### @types/jest ^30.0.0
 
 **What**: TypeScript definitions for Jest
 
@@ -410,7 +410,54 @@ export default config
 
 ## 🛠️ Build & Development
 
-### tsx ^4.20.6
+### tsdown ^0.18.2
+
+**What**: Fast TypeScript bundler powered by esbuild
+
+**Why**:
+
+- **Speed**: Extremely fast builds (powered by esbuild)
+- **Zero Config**: Works out of the box with sensible defaults
+- **Optimization**: Built-in minification and tree-shaking
+- **TypeScript-first**: Native TypeScript support
+- **Simple**: Clean, minimal configuration file
+
+**Configuration** (`tsdown.config.ts`):
+
+```typescript
+import { defineConfig } from 'tsdown'
+
+const config = defineConfig({
+  entry: ['src/app/main.ts'],
+  format: 'es',
+  platform: 'node',
+  outDir: 'dist',
+  clean: true,
+  minify: true,
+  treeshake: true,
+  skipNodeModulesBundle: true,
+})
+
+export default config
+```
+
+**Key Features**:
+
+- **ES Modules**: Native ESM output
+- **Minification**: Production-ready optimized builds
+- **Tree-shaking**: Remove unused code
+- **Clean builds**: Auto-cleanup before building
+
+**Usage**: `npm run build`
+
+**Alternatives Considered**:
+
+- **tsc (TypeScript Compiler)**: Slower, no bundling or optimization
+- **esbuild directly**: More configuration needed
+- **rollup**: More complex setup
+- **webpack**: Overly complex for simple projects
+
+### tsx ^4.21.0
 
 **What**: TypeScript Execute - run TypeScript files directly
 
@@ -455,7 +502,7 @@ npm run dev:watch  # tsx watch src/app/main.ts
 - **del-cli**: Similar but less popular
 - **Manual scripts**: Platform-specific issues
 
-### npm-check-updates ^19.1.2
+### npm-check-updates ^19.2.0
 
 **What**: Upgrade package.json dependencies to latest versions
 

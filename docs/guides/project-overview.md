@@ -202,16 +202,17 @@ node-ts/
 
 | Tool              | Purpose                | Version  |
 | ----------------- | ---------------------- | -------- |
-| Node.js           | Runtime                | v24.11.1 |
+| Node.js           | Runtime                | v24.12.0 |
 | TypeScript        | Type system            | ^5.9.3   |
-| ESLint            | Linting                | ^9.39.1  |
-| Prettier          | Formatting             | ^3.7.3   |
+| ESLint            | Linting                | ^9.39.2  |
+| Prettier          | Formatting             | ^3.7.4   |
 | Jest              | Testing                | ^30.2.0  |
 | Husky             | Git hooks              | ^9.1.7   |
 | lint-staged       | Pre-commit linting     | ^16.2.7  |
-| commitlint        | Commit message linting | ^20.1.0  |
-| tsx               | Direct TS execution    | ^4.20.6  |
-| npm-check-updates | Dependency updates     | ^19.1.2  |
+| commitlint        | Commit message linting | ^20.2.0  |
+| tsx               | Direct TS execution    | ^4.21.0  |
+| tsdown            | Build bundler          | ^0.18.2  |
+| npm-check-updates | Dependency updates     | ^19.2.0  |
 
 ## 📜 Available Scripts
 
@@ -219,7 +220,7 @@ node-ts/
 | ----------------------- | ----------------------------- |
 | `npm run dev`           | Run TypeScript directly       |
 | `npm run dev:watch`     | Run with hot reload           |
-| `npm run build`         | Compile to JavaScript         |
+| `npm run build`         | Build with tsdown             |
 | `npm start`             | Run built application         |
 | `npm run typecheck`     | Check TypeScript types        |
 | `npm run lint`          | Check code with ESLint        |
