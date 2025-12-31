@@ -1,3 +1,9 @@
+## [1.0.9](https://github.com/Barthmossr/node-ts/compare/v1.0.8...v1.0.9) (2025-12-31)
+
+### Maintenance
+
+* **deps:** bump the development group with 2 updates ([a15130b](https://github.com/Barthmossr/node-ts/commit/a15130b2bc9370ceeaaa6a9f069a347c5aa47d3b))
+
 ## [1.0.8](https://github.com/Barthmossr/node-ts/compare/v1.0.7...v1.0.8) (2025-12-22)
 
 ### Documentation
